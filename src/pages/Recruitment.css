@@ -1,0 +1,25 @@
+.recruit-hero__btn {
+  margin-top: 20px;
+}
+
+.recruit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 300px);
+  gap: 28px;
+  align-items: start;
+}
+
+.recruit__aside {
+  position: sticky;
+  top: calc(var(--nav-h) + 16px);
+}
+
+@media (max-width: 900px) {
+  .recruit {
+    grid-template-columns: 1fr;
+  }
+
+  .recruit__aside {
+    position: static;
+  }
+}
