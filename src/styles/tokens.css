@@ -1,0 +1,52 @@
+:root {
+  /* Palette from the requirements PDF, page 2-3 */
+  --cream: #faf3e6;
+  --ivory: #fffaf1;
+  --band: #f3e6cf;
+  --maroon: #6b1523;
+  --maroon-deep: #470d18;
+  --gold: #b8892b;
+  --gold-light: #f3d58a;
+
+  /* Accent ramp sampled from the page-2 swatch column */
+  --ember: #7f1100;
+  --brick: #b52206;
+  --flame: #d63a00;
+  --orange: #ff6600;
+  --amber: #f9c000;
+
+  --ink: #2b1a17;
+  --ink-soft: #5c4842;
+  --muted: #7a6760;
+  --line: #e8d9be;
+  --line-strong: #d8c4a2;
+  --white: #ffffff;
+
+  --medal-gold: #d4a017;
+  --medal-silver: #9a9a9a;
+  --medal-bronze: #b8692b;
+
+  --status-open: #b52206;
+  --status-progress: #b8892b;
+  --status-done: #3f7a3a;
+
+  /* Type: Cinzel for headings, Source Sans 3 for everything else */
+  --font-display: 'Cinzel', 'Times New Roman', serif;
+  --font-body: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+  --font-hindi: 'Tiro Devanagari Hindi', 'Noto Serif Devanagari', serif;
+
+  --fs-h1: clamp(2.1rem, 4.6vw, 3.4rem);
+  --fs-h2: clamp(1.55rem, 2.8vw, 2.15rem);
+  --fs-h3: 1.15rem;
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-xs: 0.78rem;
+
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow: 0 1px 2px rgb(71 13 24 / 0.06), 0 6px 18px rgb(71 13 24 / 0.06);
+
+  --container: 1180px;
+  --gutter: clamp(16px, 4vw, 32px);
+  --nav-h: 68px;
+}
