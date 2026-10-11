@@ -120,8 +120,8 @@
   margin-top: 20px;
   padding: 4px;
   border-radius: 999px;
-  background: rgb(255 250 241 / 0.12);
-  border: 1px solid rgb(255 250 241 / 0.25);
+  background: rgb(255 255 255 / 0.12);
+  border: 1px solid rgb(255 255 255 / 0.25);
 }
 
 .mode-toggle button {

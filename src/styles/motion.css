@@ -33,7 +33,7 @@
 
 .lift:hover {
   transform: translateY(-6px);
-  box-shadow: 0 2px 4px rgb(71 13 24 / 0.08), 0 18px 36px rgb(71 13 24 / 0.14);
+  box-shadow: 0 2px 4px rgb(10 15 44 / 0.08), 0 18px 36px rgb(10 15 44 / 0.14);
 }
 
 /* Hero text entrance, staggered by --i */
@@ -71,5 +71,152 @@
 
   .kenburns {
     animation: none;
+  }
+}
+
+/* ---- Palette-era motion ---- */
+
+/* Light sweep across buttons on hover */
+.btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(105deg, transparent 30%, rgb(255 255 255 / 0.45) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.btn:hover::after {
+  transform: translateX(120%);
+}
+
+.btn--outline::after,
+.btn--light::after {
+  background: linear-gradient(105deg, transparent 30%, rgb(45 140 255 / 0.18) 50%, transparent 70%);
+}
+
+/* Donate keeps a soft pulse so it is always noticed */
+.btn--donate {
+  animation: donate-pulse 2.6s ease-out infinite;
+}
+
+@keyframes donate-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(45 140 255 / 0.45), 0 8px 20px rgb(45 140 255 / 0.3);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 14px rgb(45 140 255 / 0), 0 8px 20px rgb(45 140 255 / 0.3);
+  }
+}
+
+/* Two blue glows drift slowly behind every page */
+body::after {
+  content: '';
+  position: fixed;
+  inset: -20%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(30vmax 30vmax at 20% 30%, rgb(45 140 255 / 0.1), transparent 70%),
+    radial-gradient(26vmax 26vmax at 80% 70%, rgb(10 15 44 / 0.08), transparent 70%);
+  animation: drift 38s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  to {
+    transform: translate(6%, -5%) rotate(8deg);
+  }
+}
+
+/* Dot grid in the corner of hero photos, as in the palette artwork */
+.dot-grid {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: min(46vw, 560px);
+  height: min(60%, 420px);
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgb(140 196 255 / 0.55) 1.3px, transparent 1.6px);
+  background-size: 18px 18px;
+  -webkit-mask-image: radial-gradient(ellipse at 100% 0%, #000 10%, transparent 70%);
+  mask-image: radial-gradient(ellipse at 100% 0%, #000 10%, transparent 70%);
+  animation: dots-drift 14s linear infinite;
+}
+
+@keyframes dots-drift {
+  to {
+    background-position: 36px 18px;
+  }
+}
+
+.page-hero__body {
+  z-index: 2;
+}
+
+/* Section rules draw in when revealed */
+.reveal .rule {
+  transform: scaleX(0);
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
+}
+
+.reveal.is-in .rule {
+  transform: scaleX(1);
+}
+
+/* Cards pick up a blue edge on hover */
+.lift:hover {
+  box-shadow:
+    0 0 0 1px rgb(45 140 255 / 0.35),
+    0 2px 4px rgb(10 15 44 / 0.06),
+    0 18px 36px rgb(45 140 255 / 0.16);
+}
+
+/* Moving light along the top edge of the footer */
+.footer {
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--blue), #8cc4ff, var(--blue), transparent);
+  background-size: 50% 100%;
+  background-repeat: no-repeat;
+  animation: footer-line 6s linear infinite;
+}
+
+@keyframes footer-line {
+  from {
+    background-position: -50% 0;
+  }
+  to {
+    background-position: 150% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn--donate,
+  body::after,
+  .dot-grid,
+  .footer::before {
+    animation: none;
+  }
+
+  .reveal .rule {
+    transform: none;
   }
 }

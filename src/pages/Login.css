@@ -24,7 +24,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(160deg, rgb(71 13 24 / 0.78), rgb(30 6 10 / 0.9));
+  background: linear-gradient(160deg, rgb(10 15 44 / 0.78), rgb(5 8 25 / 0.9));
 }
 
 .login__visual-body {
@@ -54,7 +54,7 @@
 .login__inst {
   letter-spacing: 0.3em;
   font-size: var(--fs-small);
-  color: #e2cdb8;
+  color: #b9c5e0;
 }
 
 .login__rule {
@@ -90,7 +90,7 @@
   border-radius: 28px;
   background: var(--ivory);
   border: 1px solid var(--line);
-  box-shadow: 0 24px 60px rgb(71 13 24 / 0.12);
+  box-shadow: 0 24px 60px rgb(10 15 44 / 0.12);
 }
 
 .login__form h1 {
@@ -122,7 +122,7 @@
 
 .login__input:focus-within {
   border-color: var(--gold);
-  box-shadow: 0 0 0 4px rgb(243 213 138 / 0.45);
+  box-shadow: 0 0 0 4px rgb(140 196 255 / 0.45);
   color: var(--maroon);
 }
 

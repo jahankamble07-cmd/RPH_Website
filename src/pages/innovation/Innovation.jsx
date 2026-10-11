@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { can } from '../../auth/roles'
 import { useAuth } from '../../auth/useAuth'
+import CountUp from '../../components/CountUp'
 import FilmHero from '../../components/FilmHero'
 import Icon from '../../components/Icon'
 import Pills from '../../components/Pills'
@@ -130,7 +131,7 @@ export default function Innovation() {
           {INNOVATION_STATS.map((s) => (
             <div key={s.label}>
               <Icon name={s.icon} size={22} />
-              <dd>{s.value}</dd>
+              <dd><CountUp value={s.value} /></dd>
               <dt>{s.label}</dt>
             </div>
           ))}

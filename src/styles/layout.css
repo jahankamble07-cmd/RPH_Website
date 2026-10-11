@@ -61,7 +61,7 @@
 }
 
 .brand--light .brand__text small {
-  color: #d9c3ae;
+  color: #b5c1de;
 }
 
 .nav__links {
@@ -92,7 +92,7 @@
   z-index: -1;
   border-radius: 999px;
   background: rgb(255 255 255 / 0.65);
-  box-shadow: 0 4px 14px rgb(71 13 24 / 0.1);
+  box-shadow: 0 4px 14px rgb(10 15 44 / 0.1);
   opacity: 0;
   transform: scale(0.7);
   transition: opacity 0.25s, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
@@ -154,7 +154,7 @@
 
 .nav__actions .icon-btn:hover {
   transform: translateY(-2px) scale(1.06);
-  box-shadow: 0 0 0 4px rgb(184 137 43 / 0.2), 0 8px 18px rgb(71 13 24 / 0.15);
+  box-shadow: 0 0 0 4px rgb(45 140 255 / 0.2), 0 8px 18px rgb(10 15 44 / 0.15);
 }
 
 .nav__actions {
@@ -283,7 +283,7 @@ main {
 /* Footer */
 .footer {
   background: var(--maroon-deep);
-  color: #e9d8c5;
+  color: #d3dcf0;
   margin-top: auto;
 }
 
@@ -304,7 +304,7 @@ main {
 }
 
 .footer__links a {
-  color: #e9d8c5;
+  color: #d3dcf0;
   text-decoration: none;
   font-size: var(--fs-small);
 }
@@ -320,7 +320,7 @@ main {
 
 .footer__social a,
 .footer__social span {
-  color: #e9d8c5;
+  color: #d3dcf0;
   display: inline-flex;
 }
 
@@ -335,7 +335,7 @@ main {
   gap: 8px 20px;
   padding-block: 16px 22px;
   font-size: var(--fs-xs);
-  color: #c7ae9b;
+  color: #9aa8cc;
 }
 
 /* Avatar */
@@ -348,7 +348,7 @@ main {
 .avatar--initials {
   display: inline-grid;
   place-items: center;
-  background: linear-gradient(145deg, #c98a3a, #8a3d17);
+  background: linear-gradient(145deg, #5aa6ff, #1b3c8c);
   color: var(--ivory);
   font-family: var(--font-display);
   font-weight: 600;

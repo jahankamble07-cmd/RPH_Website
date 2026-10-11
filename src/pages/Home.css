@@ -20,7 +20,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgb(43 8 14 / 0.86) 0%, rgb(43 8 14 / 0.55) 48%, rgb(43 8 14 / 0.12) 100%);
+  background: linear-gradient(90deg, rgb(10 15 44 / 0.86) 0%, rgb(10 15 44 / 0.55) 48%, rgb(10 15 44 / 0.12) 100%);
 }
 
 .home-hero__body {
@@ -50,7 +50,7 @@
 .home-hero__text {
   max-width: 440px;
   margin-bottom: 22px;
-  color: #f1e3cf;
+  color: #d9e2f5;
 }
 
 .stats {
@@ -108,11 +108,11 @@
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(60% 120% at 0% 0%, rgb(184 137 43 / 0.35), transparent 60%),
-    radial-gradient(50% 120% at 100% 100%, rgb(214 58 0 / 0.25), transparent 60%),
-    linear-gradient(135deg, #5b1120, var(--maroon-deep));
+    radial-gradient(60% 120% at 0% 0%, rgb(45 140 255 / 0.35), transparent 60%),
+    radial-gradient(50% 120% at 100% 100%, rgb(45 140 255 / 0.25), transparent 60%),
+    linear-gradient(135deg, #070b24, var(--maroon-deep));
   border: 1px solid rgb(255 255 255 / 0.12);
-  box-shadow: 0 24px 50px rgb(71 13 24 / 0.25), var(--glass-dark-edge);
+  box-shadow: 0 24px 50px rgb(10 15 44 / 0.25), var(--glass-dark-edge);
   color: var(--ivory);
   border-radius: var(--radius);
   padding: clamp(18px, 3vw, 28px);
@@ -133,7 +133,7 @@
 }
 
 .medals__head p {
-  color: #e2cdb8;
+  color: #b9c5e0;
   font-size: var(--fs-small);
 }
 
@@ -293,10 +293,10 @@
   gap: 14px;
   padding: 22px;
   border-radius: 22px;
-  color: #eadfd2;
-  background: linear-gradient(165deg, #2e0911 0%, #1c060b 100%);
+  color: #dce3f2;
+  background: linear-gradient(165deg, #111836 0%, #080c24 100%);
   border: 1px solid rgb(255 255 255 / 0.08);
-  box-shadow: 0 14px 30px rgb(43 8 14 / 0.2);
+  box-shadow: 0 14px 30px rgb(10 15 44 / 0.2);
 }
 
 .cal > * {
@@ -336,7 +336,7 @@
 
 .cal__today-text span {
   font-size: var(--fs-small);
-  color: #c9b3a2;
+  color: #9aa8cc;
 }
 
 .cal__badge {
@@ -347,7 +347,7 @@
   border-radius: 999px;
   font-size: var(--fs-xs);
   font-weight: 700;
-  color: #cdb8a6;
+  color: #aab6d6;
   border: 1px solid rgb(255 255 255 / 0.12);
   white-space: nowrap;
 }
@@ -370,7 +370,7 @@
 }
 
 .cal__month span {
-  color: #cdb8a6;
+  color: #aab6d6;
 }
 
 .cal__arrow {
@@ -402,11 +402,11 @@
   font-size: var(--fs-xs);
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: #a98f80;
+  color: #7f8bb0;
 }
 
 .cal__wd .is-weekend {
-  color: #a98f80;
+  color: #7f8bb0;
 }
 
 .cal__grid.from-right {
@@ -440,7 +440,7 @@
   border: 1px solid transparent;
   border-radius: 10px;
   background: transparent;
-  color: #e2d4c4;
+  color: #d0d8ec;
   font: inherit;
   font-size: var(--fs-small);
   font-variant-numeric: tabular-nums;
@@ -449,7 +449,7 @@
 }
 
 .cal__day.is-weekend {
-  color: #b9a191;
+  color: #93a0c2;
 }
 
 .cal__day:hover {
@@ -474,7 +474,7 @@
 .cal__day.is-today {
   color: var(--gold-light);
   font-weight: 700;
-  border-color: rgb(243 213 138 / 0.55);
+  border-color: rgb(140 196 255 / 0.55);
 }
 
 .cal__detail {
@@ -510,7 +510,7 @@
 .cal__detail em {
   font-style: normal;
   font-size: var(--fs-small);
-  color: #c9b3a2;
+  color: #9aa8cc;
 }
 
 .cal__dot {
@@ -523,7 +523,7 @@
 
 .cal__empty {
   font-size: var(--fs-small);
-  color: #c9b3a2;
+  color: #9aa8cc;
 }
 
 .cal__foot {
@@ -532,7 +532,7 @@
   align-items: center;
   gap: 10px;
   font-size: var(--fs-xs);
-  color: #a98f80;
+  color: #7f8bb0;
 }
 
 .cal__today-btn {
@@ -540,7 +540,7 @@
   border-radius: 999px;
   border: 1px solid rgb(255 255 255 / 0.18);
   background: transparent;
-  color: #e2d4c4;
+  color: #d0d8ec;
   font-weight: 700;
   font-size: var(--fs-xs);
   cursor: pointer;
@@ -576,7 +576,7 @@
   display: grid;
   justify-items: center;
   gap: 4px;
-  color: rgb(255 250 241 / 0.75);
+  color: rgb(255 255 255 / 0.75);
   font-size: var(--fs-xs);
   text-decoration: none;
   transform: translateX(-50%);

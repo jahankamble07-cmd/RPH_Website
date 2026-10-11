@@ -1,33 +1,37 @@
 :root {
-  /* Palette from the requirements PDF, page 2-3 */
-  --cream: #faf3e6;
-  --ivory: #fffaf1;
-  --band: #f3e6cf;
-  --maroon: #6b1523;
-  --maroon-deep: #470d18;
-  --gold: #b8892b;
-  --gold-light: #f3d58a;
+  /* AboutCloud palette: Vibrant Blue #2D8CFF, Navy #0A0F2C, White, Light Gray #F0F1F3.
+     Older token names are kept so existing rules pick up the new colours:
+     --maroon is now the navy brand colour and --gold the blue accent. */
+  --blue: #2d8cff;
+  --navy: #0a0f2c;
+  --cream: #f0f1f3;
+  --ivory: #ffffff;
+  --band: #e4e8f0;
+  --maroon: #0a0f2c;
+  --maroon-deep: #050820;
+  --gold: #2d8cff;
+  --gold-light: #8cc4ff;
 
   /* Accent ramp sampled from the page-2 swatch column */
-  --ember: #7f1100;
-  --brick: #b52206;
-  --flame: #d63a00;
-  --orange: #ff6600;
-  --amber: #f9c000;
+  --ember: #1b2a5c;
+  --brick: #e5484d;
+  --flame: #2d8cff;
+  --orange: #6fb1ff;
+  --amber: #a9d1ff;
 
-  --ink: #2b1a17;
-  --ink-soft: #5c4842;
-  --muted: #7a6760;
-  --line: #e8d9be;
-  --line-strong: #d8c4a2;
+  --ink: #0a0f2c;
+  --ink-soft: #3b4466;
+  --muted: #6b7390;
+  --line: #dde1ea;
+  --line-strong: #c5cbd9;
   --white: #ffffff;
 
   --medal-gold: #d4a017;
   --medal-silver: #9a9a9a;
   --medal-bronze: #b8692b;
 
-  --status-open: #b52206;
-  --status-progress: #b8892b;
+  --status-open: #e5484d;
+  --status-progress: #2d8cff;
   --status-done: #3f7a3a;
 
   /* Type: Cinzel for headings, Source Sans 3 for everything else */
@@ -44,7 +48,7 @@
 
   --radius: 10px;
   --radius-sm: 6px;
-  --shadow: 0 1px 2px rgb(71 13 24 / 0.06), 0 6px 18px rgb(71 13 24 / 0.06);
+  --shadow: 0 1px 2px rgb(10 15 44 / 0.06), 0 6px 18px rgb(10 15 44 / 0.06);
 
   --container: 1840px;
   --gutter: clamp(16px, 3.5vw, 48px);

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { can } from '../auth/roles'
 import { useAuth } from '../auth/useAuth'
+import CountUp from '../components/CountUp'
 import Icon from '../components/Icon'
 import Pending from '../components/Pending'
 import PortraitCard from '../components/PortraitCard'
@@ -44,6 +45,7 @@ export default function Home() {
   return (
     <>
       <section className="home-hero">
+        <span className="dot-grid" aria-hidden="true" />
         <img src={img('rp-hall')} alt="R.P. Hall of Residence building" className="home-hero__img kenburns" />
         <div className="container home-hero__body">
           <div className="hero-glass">
@@ -69,7 +71,7 @@ export default function Home() {
           {HALL_STATS.map((s) => (
             <div key={s.label} className="stats__item">
               <Icon name={s.icon} size={26} />
-              <dd>{s.value}</dd>
+              <dd><CountUp value={s.value} /></dd>
               <dt>{s.label}</dt>
             </div>
           ))}
