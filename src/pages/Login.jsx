@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
-import { LANDING } from '../auth/roles'
+import { Navigate, useNavigate } from 'react-router-dom'
+import { LANDING_PATH } from '../auth/roles'
 import { useAuth } from '../auth/useAuth'
 import Icon from '../components/Icon'
 import Logo from '../components/Logo'
@@ -10,17 +10,13 @@ import './Login.css'
 
 export default function Login() {
   const { user, login, loginAvailable } = useAuth()
-  const [params] = useSearchParams()
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
 
-  const next = params.get('next')
-  const safeNext = next && next.startsWith('/') && !next.startsWith('//') ? next : null
-
-  if (user) return <Navigate to={safeNext ?? LANDING[user.role]} replace />
+  if (user) return <Navigate to={LANDING_PATH} replace />
 
   const submit = (e) => {
     e.preventDefault()
@@ -29,7 +25,7 @@ export default function Login() {
       setError('Email or password is incorrect.')
       return
     }
-    navigate(safeNext ?? LANDING[signedIn.role], { replace: true })
+    navigate(LANDING_PATH, { replace: true })
   }
 
   return (
