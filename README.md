@@ -24,12 +24,14 @@ Login is local for now: there is no backend yet. The four test accounts live in
 - To build a staging copy with the accounts: `VITE_ENABLE_TEST_ACCOUNTS=true npm run build`.
   Do not deploy that build publicly.
 
-| Role         | Email                  | Password | Lands on       |
-|--------------|------------------------|----------|----------------|
-| student      | test.student@test.com  | 12345678 | Home           |
-| alumni       | test.alumini@test.com  | 12345678 | Funding        |
-| hall_council | test.hc@test.com       | 12345678 | Complaints     |
-| warden       | test.warden@test.com   | 12345678 | Complaints     |
+| Role         | Email                  | Password |
+|--------------|------------------------|----------|
+| student      | test.student@test.com  | 12345678 |
+| alumni       | test.alumini@test.com  | 12345678 |
+| hall_council | test.hc@test.com       | 12345678 |
+| warden       | test.warden@test.com   | 12345678 |
+
+Every account lands on Home after logging in.
 
 ## Roles and access
 
@@ -42,7 +44,8 @@ shows a "No access" page to logged-in users without permission.
 |-------------------------------------------|:-------:|:------------:|:------:|:------:|
 | Home, Hall Council, Our Legacy, Gallery, Innovation | yes | yes | yes | yes |
 | Notice Board and Hall Events on Home      | yes     |              |        |        |
-| New Complaint                             | yes     | yes          |        |        |
+| File a complaint (tab for students, toggle on Complaints for hall council) | yes | yes |  |  |
+| Explore Opportunities on Innovation       | yes     | yes          | yes    | yes    |
 | Post a project (Innovation)               | yes     | yes          |        |        |
 | Complaints dashboard                      |         | yes          |        | yes    |
 | Funding (donate, offer support, leaderboard) |      |              | yes    |        |

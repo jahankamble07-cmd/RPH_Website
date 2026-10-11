@@ -41,7 +41,7 @@ How content was handled:
 23. [x] Alumni keep all public pages plus Funding and Recruitment. `src/auth/roles.js`
 24. [x] Warden: complaints same as hall council, in the Complaints tab. `src/auth/roles.js`
 25. [x] Warden: "Funding Requests" tab listing alumni offers. `src/pages/FundingRequests.jsx`
-26. [x] Landing after login: student to Home, alumni to Funding, hall council and warden to Complaints (Q9 default). `src/auth/roles.js`
+26. [x] Landing after login: every role goes to Home (round 3). `src/auth/roles.js`, `src/pages/Login.jsx`
 27. [x] Test accounts only bundled when `VITE_ENABLE_TEST_ACCOUNTS=true`; verified the production `dist/` has no credentials. `vite.config.js`, `src/auth/testAccounts.js`, `src/auth/noAccounts.js`, `.env.development`, `.env.example`, `README.md`
 
 ## C. Home page
@@ -146,6 +146,23 @@ R2-12. [x] Motion across the site: page fade on route change, scroll reveals, st
 R2-13. [x] Login: full-height split layout with the hall photo, logo and motto; footer now sits below the fold; icon fields, show/hide password, error shake. `src/pages/Login.jsx`, `src/pages/Login.css`, `src/styles/layout.css`
 
 Verification: build and lint clean; all four roles re-walked (hall council files a complaint, posts a project, opens Funding Requests, is still blocked from Funding; warden cannot file complaints; alumni cannot open Funding Requests); roll number rejects "abc" and missing fields; no horizontal overflow at 320px, 375px, 1366px and 1920px.
+
+## Round 3 (requested in chat, 11 Oct 2026)
+
+R3-1. [x] Logged-in Home: Notice Board and Hall Events now sit above the Medal Tally. `src/pages/Home.jsx`
+R3-2. [x] Notice Board was cut off on phones (grid column grew to fit the scrolling filter row). Fixed, and every page was re-audited for elements running past the screen edge at 320, 375, 440, 768 and 1024px for all roles. `src/pages/Home.css`
+R3-3. [x] Gallery and "Moments that made us" carousel: auto-advance always on (every 4 s), page scroll moves it one card per 240px while it is on screen, side buttons on desktop, swipe on mobile. The side walls no longer overlap the heading or spill outside the page. `src/components/CubeCarousel.jsx`, `src/styles/components.css`
+R3-4. [x] Featured Projects narrowed to 1280px, centred, with a shorter lead image. `src/pages/innovation/Innovation.css`
+R3-5. [x] Hall council files complaints from a toggle on the Complaints page ("All complaints" / "File a complaint"); the separate New Complaint tab is hidden for them. Students keep their tab. `src/auth/roles.js`, `src/pages/Complaints.jsx`, `src/features/complaints/ComplaintForm.jsx`
+R3-6. [x] Explore Opportunities on Innovation is only shown to logged-in users. `src/auth/roles.js`, `src/pages/innovation/Innovation.jsx`
+R3-7. [x] GC timeline spans the full page width, and the line now always completes by the bottom of the page (it used to stop short when the page ended first). `src/pages/Legacy.css`, `src/features/legacy/GcTimeline.jsx`
+R3-8. [x] Recent Highlights photo viewer was cut off under the navbar because the page-transition wrapper trapped it. Modals and the viewer now render at the top level of the page; the photo fits the screen with a fade between photos. `src/components/Lightbox.jsx`, `src/components/Modal.jsx`, `src/styles/layout.css`, `src/styles/gallery.css`
+R3-9. [x] "Have something worth building?" removed for alumni and warden (still shown to visitors, students and hall council). `src/pages/innovation/Innovation.jsx`
+R3-10. [x] Funding: "Your Funding Status" section at the top (total pledged, received, requests sent, offers, and each request with its status). The warden or hall council sets the status on Funding Requests: Request sent, In discussion, Received, Closed. `src/pages/Funding.jsx`, `src/pages/FundingRequests.jsx`, `src/data/funding.js`
+R3-11. [x] Recruitment: application deadline is required and cannot be in the past, shown on every opening, and openings are deleted automatically once the deadline day has passed. `src/pages/Recruitment.jsx`, `src/features/innovation/useOpportunities.js`, `src/features/innovation/OpportunityCard.jsx`
+R3-12. [x] Every login lands on Home; the old return-to-previous-page behaviour (which could land on "No access") is gone. `src/pages/Login.jsx`, `src/auth/RequireAccess.jsx`
+
+Verification: build and lint clean; scripted run through all four roles covering each item above (landing page, nav, complaint toggle, opportunity visibility and expiry, deadline validation, pledge status flow from alumni to warden and back); no overflow at 320 to 1024px; GC line fully drawn at page bottom at 1920, 1366 and 375px.
 
 ## Open questions
 
