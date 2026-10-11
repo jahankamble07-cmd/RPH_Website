@@ -4,7 +4,6 @@ import CubeCarousel from '../components/CubeCarousel'
 import FilmHero from '../components/FilmHero'
 import Icon from '../components/Icon'
 import Modal from '../components/Modal'
-import Pending from '../components/Pending'
 import Pills from '../components/Pills'
 import Rail from '../components/Rail'
 import Reveal from '../components/Reveal'
@@ -12,6 +11,7 @@ import { ALUMNI, ALUMNI_ERAS } from '../data/alumni'
 import { MEDAL_TALLY } from '../data/home'
 import { GC_HISTORY, LEGACY_SLIDES, MEMORIES } from '../data/legacy'
 import AlumniCard from '../features/AlumniCard'
+import GcDialog from '../features/legacy/GcDialog'
 import GcTimeline from '../features/legacy/GcTimeline'
 import './Legacy.css'
 
@@ -88,47 +88,6 @@ function Alumni() {
   )
 }
 
-function GcRecord({ entry }) {
-  const blocks = [
-    ['Sports achievements', entry.sports],
-    ['Cultural achievements', entry.cultural],
-    ['Technical achievements', entry.technical],
-    ['Winning teams', entry.teams],
-    ['Notable performances', entry.highlights],
-  ]
-  return (
-    <div className="modal__body stack">
-      <h2>GC {entry.year}</h2>
-      <p><strong>{entry.result}</strong>{entry.position && `, ${entry.position}`}</p>
-
-      <h4>Podium finishes</h4>
-      {entry.podiums?.length ? (
-        <ul className="podiums">
-          {entry.podiums.map((p) => (
-            <li key={p.event}>
-              <span className="chip">{p.position}</span>
-              {p.gallery ? <Link to={p.gallery}>{p.event}</Link> : p.event}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <Pending>Podium positions for this year are to be added.</Pending>
-      )}
-
-      {blocks.map(([title, list]) => list?.length ? (
-        <div key={title}>
-          <h4>{title}</h4>
-          <ul>{list.map((x) => <li key={x}>{x}</li>)}</ul>
-        </div>
-      ) : null)}
-
-      <Link to="/gallery/general-championship" className="btn btn--small" style={{ justifySelf: 'start' }}>
-        General Championship photos <Icon name="arrow" size={14} />
-      </Link>
-    </div>
-  )
-}
-
 function Winning() {
   const [open, setOpen] = useState(null)
   return (
@@ -164,9 +123,7 @@ function Winning() {
         <GcTimeline entries={GC_HISTORY} onOpen={setOpen} />
       </div>
       {open && (
-        <Modal onClose={() => setOpen(null)} label={`GC ${open.year}`} narrow>
-          <GcRecord entry={open} />
-        </Modal>
+        <GcDialog entry={open} onClose={() => setOpen(null)} />
       )}
     </section>
   )

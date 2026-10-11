@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import Icon from './Icon'
 
-export default function Modal({ onClose, label, narrow = false, children }) {
+export default function Modal({ onClose, label, narrow = false, className = '', children }) {
   const cardRef = useRef(null)
 
   useEffect(() => {
@@ -18,10 +18,10 @@ export default function Modal({ onClose, label, narrow = false, children }) {
   }, [onClose])
 
   return createPortal(
-    <div className="modal" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
+    <div className={`modal${className ? ` ${className}-backdrop` : ''}`} onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
       <div
         ref={cardRef}
-        className={`modal__card${narrow ? ' modal__card--narrow' : ''}`}
+        className={`modal__card${narrow ? ' modal__card--narrow' : ''}${className ? ` ${className}` : ''}`}
         role="dialog"
         aria-modal="true"
         aria-label={label}

@@ -197,6 +197,10 @@ R6-2. [x] Motion: light sweep across buttons on hover, pulse on Donate, slow blu
 
 Verification: build and lint clean; every page checked on desktop and at 440px; overflow audit clean at 320, 375 and 440px for all roles.
 
+## Round 7 (requested in chat, 11 Oct 2026)
+
+R7-1. [x] GC year pop-up redesigned: navy card that springs open, trophy drops in with slowly turning light rays, podium blocks (2nd, 1st, 3rd) rise one after another with medals popping in, per-place rows of event chips that link to their gallery pages, and a fixed action bar with a large "View GC photos" button. Opens as a bottom sheet on phones. Checked with temporary sample podium data, then reverted; real entries still show the "to be added" note (Q6). `src/features/legacy/GcDialog.jsx`, `src/pages/Legacy.css`, `src/pages/Legacy.jsx`, `src/components/Modal.jsx`
+
 ## Open questions
 
 Q1. Reference-screenshot copy. Current choice: headings and taglines used as shown; data treated as samples.
