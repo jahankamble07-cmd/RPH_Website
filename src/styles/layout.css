@@ -318,3 +318,26 @@ main {
     min-height: 34px;
   }
 }
+
+/* Keep the footer at the bottom on short pages */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#root > main {
+  flex: 1;
+}
+
+/* Route change: content fades up into place */
+.page {
+  animation: page-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}

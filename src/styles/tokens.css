@@ -46,7 +46,7 @@
   --radius-sm: 6px;
   --shadow: 0 1px 2px rgb(71 13 24 / 0.06), 0 6px 18px rgb(71 13 24 / 0.06);
 
-  --container: 1180px;
-  --gutter: clamp(16px, 4vw, 32px);
+  --container: 1840px;
+  --gutter: clamp(16px, 3.5vw, 48px);
   --nav-h: 68px;
 }

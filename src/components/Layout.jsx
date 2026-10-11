@@ -21,7 +21,9 @@ export default function Layout() {
       <a href="#main" className="skip-link">Skip to content</a>
       <Navbar onDonate={() => setDonating(true)} />
       <main id="main">
-        <Outlet context={{ openDonate: () => setDonating(true) }} />
+        <div className="page" key={pathname}>
+          <Outlet context={{ openDonate: () => setDonating(true) }} />
+        </div>
       </main>
       <Footer />
       {donating && <DonateModal onClose={() => setDonating(false)} />}

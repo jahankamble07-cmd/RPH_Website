@@ -6,6 +6,8 @@ import { AuthProvider } from './auth/AuthProvider'
 import './styles/tokens.css'
 import './styles/base.css'
 import './styles/layout.css'
+import './styles/motion.css'
+import './styles/components.css'
 import App from './App'
 
 createRoot(document.getElementById('root')).render(
