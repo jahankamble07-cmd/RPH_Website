@@ -122,15 +122,20 @@
 
 .cube__caption {
   position: absolute;
-  inset: auto 0 0;
+  inset: auto 14px 14px;
   z-index: 1;
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 56px 22px 20px;
-  background: linear-gradient(0deg, rgb(20 6 8 / 0.92), transparent);
+  gap: 10px 12px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: rgb(36 7 12 / 0.38);
+  border: 1px solid rgb(255 255 255 / 0.22);
+  box-shadow: var(--glass-dark-edge, inset 0 1px 0 rgb(255 255 255 / 0.14));
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
   color: var(--ivory);
 }
 
@@ -228,7 +233,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgb(43 8 14 / 0.92), rgb(43 8 14 / 0.6) 55%, rgb(43 8 14 / 0.3));
+  background: linear-gradient(90deg, rgb(43 8 14 / 0.55), rgb(43 8 14 / 0.3) 55%, rgb(43 8 14 / 0.15));
 }
 
 .film-hero__body {
@@ -479,5 +484,37 @@
 @media (max-width: 700px) {
   .rail__btn {
     display: none;
+  }
+}
+
+/* Frosted text panel over hero photos */
+.hero-glass {
+  max-width: 640px;
+  padding: clamp(22px, 3.4vw, 38px);
+  border-radius: 26px;
+  background: rgb(36 7 12 / 0.36);
+  border: 1px solid rgb(255 255 255 / 0.2);
+  box-shadow: 0 24px 60px rgb(0 0 0 / 0.25), inset 0 1px 0 rgb(255 255 255 / 0.16);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+}
+
+.hero-glass > :last-child {
+  margin-bottom: 0;
+}
+
+.hero-glass--compact {
+  max-width: 760px;
+  padding: clamp(18px, 3vw, 28px);
+  border-radius: 22px;
+}
+
+.hero-glass--compact p {
+  margin-top: 8px;
+}
+
+@media (max-width: 560px) {
+  .hero-glass {
+    border-radius: 20px;
   }
 }
