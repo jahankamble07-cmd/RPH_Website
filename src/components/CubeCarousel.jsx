@@ -1,6 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
+import Icon from './Icon'
 
 const REDUCED = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+const SCROLL_STEP = 240
 
 // Cards sit like the inside of a box: the active card is the back wall and
 // its neighbours fold out as the side walls.
@@ -12,7 +14,7 @@ function placement(offset) {
   }
   return {
     transformOrigin: side > 0 ? '0% 50%' : '100% 50%',
-    transform: `translateX(${side * 100}%) rotateY(${-side * (abs === 1 ? 62 : 98)}deg)`,
+    transform: `translateX(${side * 100}%) rotateY(calc(${-side} * ${abs === 1 ? 'var(--fold)' : '100deg'}))`,
     opacity: abs === 1 ? 1 : 0,
     zIndex: 10 - abs,
     pointerEvents: abs === 1 ? 'auto' : 'none',
@@ -20,21 +22,55 @@ function placement(offset) {
 }
 
 // items: [{ id, title, theme, image, renderAction? }]
+// Moves on its own every `interval` ms, with page scroll while in view,
+// with the side buttons, by swipe or drag, and with the arrow keys.
 export default function CubeCarousel({ items, active, onActive, label, interval = 4000 }) {
   const count = items.length
-  const [paused, setPaused] = useState(false)
+  const rootRef = useRef(null)
   const drag = useRef(null)
-  const wheel = useRef({ sum: 0, lock: 0 })
+  const goRef = useRef(null)
 
-  const go = useCallback((step) => onActive((active + step + count) % count), [active, count, onActive])
+  const go = (step) => onActive((active + step + count) % count)
+  // Timers and scroll listeners call the latest `go` through this ref.
+  useLayoutEffect(() => {
+    goRef.current = go
+  })
 
   useEffect(() => {
-    if (paused || REDUCED || count < 2) return
-    const t = setTimeout(() => {
-      if (!document.hidden) go(1)
-    }, interval)
+    if (REDUCED || count < 2) return
+    const t = setTimeout(() => !document.hidden && goRef.current(1), interval)
     return () => clearTimeout(t)
-  }, [active, paused, go, interval, count])
+  }, [active, interval, count])
+
+  // Page scroll drives the carousel while it is on screen.
+  useEffect(() => {
+    if (REDUCED || count < 2) return
+    const el = rootRef.current
+    let inView = false
+    let lastY = window.scrollY
+    let sum = 0
+    const io = new IntersectionObserver(([e]) => {
+      inView = e.isIntersecting
+      sum = 0
+    }, { threshold: 0.35 })
+    io.observe(el)
+    const onScroll = () => {
+      const y = window.scrollY
+      if (inView) {
+        sum += y - lastY
+        if (Math.abs(sum) >= SCROLL_STEP) {
+          goRef.current(sum > 0 ? 1 : -1)
+          sum = 0
+        }
+      }
+      lastY = y
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      io.disconnect()
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [count])
 
   const offsetOf = (i) => {
     let o = i - active
@@ -52,20 +88,8 @@ export default function CubeCarousel({ items, active, onActive, label, interval 
   const onPointerUp = (e) => {
     if (!drag.current) return
     const dx = e.clientX - drag.current.x
-    if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1)
+    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1)
     setTimeout(() => (drag.current = null), 0)
-  }
-
-  // Horizontal trackpad scroll moves one card per gesture.
-  const onWheel = (e) => {
-    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return
-    const now = Date.now()
-    if (now < wheel.current.lock) return
-    wheel.current.sum += e.deltaX
-    if (Math.abs(wheel.current.sum) > 40) {
-      go(wheel.current.sum > 0 ? 1 : -1)
-      wheel.current = { sum: 0, lock: now + 650 }
-    }
   }
 
   const onKeyDown = (e) => {
@@ -74,50 +98,50 @@ export default function CubeCarousel({ items, active, onActive, label, interval 
   }
 
   return (
-    <div
-      className="cube"
-      role="region"
-      aria-roledescription="carousel"
-      aria-label={label}
-      tabIndex={0}
-      onKeyDown={onKeyDown}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocus={() => setPaused(true)}
-      onBlur={() => setPaused(false)}
-    >
-      <div
-        className="cube__stage"
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerCancel={() => (drag.current = null)}
-        onWheel={onWheel}
-      >
-        {items.map((item, i) => {
-          const offset = offsetOf(i)
-          const isActive = offset === 0
-          return (
-            <article
-              key={item.id}
-              className={`cube__face${isActive ? ' is-active' : ''}`}
-              style={placement(offset)}
-              aria-hidden={!isActive}
-              onClick={() => !isActive && !drag.current?.moved && onActive(i)}
-            >
-              <img src={item.image} alt="" draggable="false" />
-              <div className="cube__caption">
-                <div>
-                  <h2>{item.title}</h2>
-                  <p>{item.theme}</p>
+    <div ref={rootRef} className="cube" role="region" aria-roledescription="carousel" aria-label={label} tabIndex={0} onKeyDown={onKeyDown}>
+      <div className="cube__viewport">
+        <div
+          className="cube__stage"
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          onPointerCancel={() => (drag.current = null)}
+        >
+          {items.map((item, i) => {
+            const offset = offsetOf(i)
+            const isActive = offset === 0
+            return (
+              <article
+                key={item.id}
+                className={`cube__face${isActive ? ' is-active' : ''}`}
+                style={placement(offset)}
+                aria-hidden={!isActive}
+                onClick={() => !isActive && !drag.current?.moved && onActive(i)}
+              >
+                <img src={item.image} alt="" draggable="false" />
+                <div className="cube__caption">
+                  <div>
+                    <h2>{item.title}</h2>
+                    <p>{item.theme}</p>
+                  </div>
+                  {isActive && item.renderAction?.()}
                 </div>
-                {isActive && item.renderAction?.()}
-              </div>
-            </article>
-          )
-        })}
+              </article>
+            )
+          })}
+        </div>
+        {count > 1 && (
+          <>
+            <button type="button" className="icon-btn cube__btn cube__btn--prev" onClick={() => go(-1)} aria-label="Previous">
+              <Icon name="left" size={22} />
+            </button>
+            <button type="button" className="icon-btn cube__btn cube__btn--next" onClick={() => go(1)} aria-label="Next">
+              <Icon name="right" size={22} />
+            </button>
+          </>
+        )}
       </div>
-      <div className={`cube__dots${paused ? ' is-paused' : ''}`}>
+      <div className="cube__dots">
         {items.map((item, i) => (
           <button
             key={item.id}

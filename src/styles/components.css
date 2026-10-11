@@ -1,15 +1,24 @@
 /* Cube carousel */
 .cube {
+  --face-w: min(640px, 46vw);
+  --fold: 50deg;
   position: relative;
-  margin: 40px 0 8px;
+  margin: 8px 0 0;
   outline: none;
 }
 
-.cube__stage {
-  --face-w: min(600px, 64vw);
+/* Vertical padding leaves room for the side walls, which grow as they fold
+   toward the viewer; horizontal clip keeps them inside the page. */
+.cube__viewport {
   position: relative;
-  height: clamp(280px, 36vw, 440px);
-  perspective: 2200px;
+  padding-block: calc(var(--face-w) * 0.1);
+  overflow-x: clip;
+}
+
+.cube__stage {
+  position: relative;
+  height: calc(var(--face-w) * 0.66);
+  perspective: calc(var(--face-w) * 3.8);
   perspective-origin: 50% 50%;
   transform-style: preserve-3d;
   touch-action: pan-y;
@@ -19,6 +28,47 @@
 
 .cube__stage:active {
   cursor: grabbing;
+}
+
+.cube__btn {
+  position: absolute;
+  top: 50%;
+  z-index: 30;
+  width: 48px;
+  height: 48px;
+  transform: translateY(-50%);
+  background: var(--ivory);
+  box-shadow: var(--shadow);
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.cube__btn:hover {
+  background: var(--maroon);
+  color: var(--ivory);
+  transform: translateY(-50%) scale(1.06);
+}
+
+.cube__btn--prev {
+  left: 4px;
+}
+
+.cube__btn--next {
+  right: 4px;
+}
+
+@media (max-width: 700px) {
+  .cube {
+    --face-w: 76vw;
+    --fold: 72deg;
+  }
+
+  .cube__stage {
+    height: calc(var(--face-w) * 0.82);
+  }
+
+  .cube__btn {
+    display: none;
+  }
 }
 
 .cube__face {
@@ -54,6 +104,7 @@
 
 .cube__face:not(.is-active) {
   cursor: pointer;
+  box-shadow: none;
 }
 
 .cube__face img {
@@ -100,7 +151,7 @@
   display: flex;
   justify-content: center;
   gap: 8px;
-  margin-top: 26px;
+  margin-top: 6px;
 }
 
 .cube__dots button {
@@ -130,19 +181,9 @@
   animation: dot-fill var(--interval) linear forwards;
 }
 
-.cube__dots.is-paused button span {
-  animation-play-state: paused;
-}
-
 @keyframes dot-fill {
   from {
     transform: scaleX(0);
-  }
-}
-
-@media (max-width: 700px) {
-  .cube__stage {
-    --face-w: 76vw;
   }
 }
 
