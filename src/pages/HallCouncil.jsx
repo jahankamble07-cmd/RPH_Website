@@ -1,26 +1,20 @@
 import { useState } from 'react'
-import Avatar from '../components/Avatar'
 import Icon from '../components/Icon'
 import Pending from '../components/Pending'
 import Pills from '../components/Pills'
+import PortraitCard from '../components/PortraitCard'
+import ProfileFeature from '../components/ProfileFeature'
+import Reveal from '../components/Reveal'
 import { COUNCIL_TERMS, COUNCILS, designation, TOP_POSTS } from '../data/council'
 import './HallCouncil.css'
 
-function MemberCard({ m, large }) {
-  const dialable = /^\d{10}$/.test(m.phone)
+function Phone({ number }) {
+  const dialable = /^\d{10}$/.test(number)
   return (
-    <article className={`member card${large ? ' member--large' : ''}`}>
-      <Avatar name={m.name} src={m.photo} size={large ? 104 : 80} />
-      <div className="member__body">
-        <h3>{m.name}</h3>
-        <p className="member__dept">{m.department ?? 'Department to be added'}</p>
-        <span className="chip chip--maroon member__post">{designation(m.post)}</span>
-        <p className="member__phone">
-          <Icon name="phone" size={14} />
-          {dialable ? <a href={`tel:+91${m.phone}`}>{m.phone}</a> : <span>{m.phone}</span>}
-        </p>
-      </div>
-    </article>
+    <p className="member__phone">
+      <Icon name="phone" size={14} />
+      {dialable ? <a href={`tel:+91${number}`}>{number}</a> : <span>{number}</span>}
+    </p>
   )
 }
 
@@ -34,11 +28,11 @@ export default function HallCouncil() {
   return (
     <section className="section council">
       <div className="container">
-        <div className="section-head section-head--center">
+        <Reveal className="section-head section-head--center">
           <h1>Hall Council</h1>
           <hr className="rule" />
           <p>The elected representatives and student secretaries who lead, serve and represent the RP Hall community.</p>
-        </div>
+        </Reveal>
 
         <Pills options={COUNCIL_TERMS} value={term} onChange={setTerm} label="Council year" center />
 
@@ -47,14 +41,28 @@ export default function HallCouncil() {
             <Pending>Details of the {termLabel} council are to be added.</Pending>
           </div>
         ) : (
-          <>
+          <div key={term}>
             <div className="council__top">
-              {top.map((m) => <MemberCard key={m.name} m={m} large />)}
+              {top.map((m, i) => (
+                <Reveal key={m.name} variant={i ? 'right' : 'left'}>
+                  <ProfileFeature name={m.name} photo={m.photo} heading={m.name} className="member-feature">
+                    <span className="chip chip--maroon member__post">{designation(m.post)}</span>
+                    <p className="muted small">{m.department ?? 'Department to be added'}</p>
+                    <Phone number={m.phone} />
+                  </ProfileFeature>
+                </Reveal>
+              ))}
             </div>
             <div className="council__rest">
-              {rest.map((m) => <MemberCard key={m.name} m={m} />)}
+              {rest.map((m, i) => (
+                <Reveal key={m.name} delay={(i % 5) * 80}>
+                  <PortraitCard name={m.name} photo={m.photo} lines={[designation(m.post), m.department ?? 'Department to be added']}>
+                    <Phone number={m.phone} />
+                  </PortraitCard>
+                </Reveal>
+              ))}
             </div>
-          </>
+          </div>
         )}
       </div>
     </section>
