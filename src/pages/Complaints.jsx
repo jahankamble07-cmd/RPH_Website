@@ -81,7 +81,7 @@ export default function Complaints() {
                     <h4>{c.title}</h4>
                     <p className="small">{c.description}</p>
                     <p className="muted small">
-                      {c.authorName}{c.room && `, room ${c.room}`}, {formatDate(c.createdAt)}
+                      {c.authorName}{c.rollNo && ` (${c.rollNo})`}{c.room && `, room ${c.room}`}, {formatDate(c.createdAt)}
                     </p>
                     <label className="complaint-list__status">
                       <span className="small">Status</span>

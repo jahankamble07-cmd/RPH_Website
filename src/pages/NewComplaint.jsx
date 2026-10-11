@@ -6,7 +6,10 @@ import { formatDate } from '../lib/format'
 import { COLLECTIONS, useCollection } from '../lib/store'
 import './Complaints.css'
 
-const EMPTY = { category: '', room: '', title: '', description: '' }
+const EMPTY = { rollNo: '', category: '', room: '', title: '', description: '' }
+
+// IIT Kharagpur roll numbers: two-digit year, two-letter department, five digits (e.g. 22CS10001).
+const ROLL_PATTERN = /^\d{2}[A-Z]{2}\d{5}$/
 
 export default function NewComplaint() {
   const { user } = useAuth()
@@ -20,12 +23,18 @@ export default function NewComplaint() {
 
   const submit = (e) => {
     e.preventDefault()
-    if (!form.category || !form.title.trim() || !form.description.trim()) {
-      setError('Category, subject and details are required.')
+    const rollNo = form.rollNo.trim().toUpperCase()
+    if (!rollNo || !form.category || !form.room.trim() || !form.title.trim() || !form.description.trim()) {
+      setError('All fields are required.')
       setDone(false)
       return
     }
-    add({ ...form, status: 'open', authorId: user.id, authorName: user.name })
+    if (!ROLL_PATTERN.test(rollNo)) {
+      setError('Enter a valid roll number, for example 22CS10001.')
+      setDone(false)
+      return
+    }
+    add({ ...form, rollNo, room: form.room.trim(), status: 'open', authorId: user.id, authorName: user.name })
     setForm(EMPTY)
     setError('')
     setDone(true)
@@ -38,7 +47,12 @@ export default function NewComplaint() {
         <div className="container complaint-layout">
           <form className="form card card-body" onSubmit={submit} noValidate>
             <h2>New complaint</h2>
+            <p className="muted small">All fields are required.</p>
             <div className="form-row">
+              <div className="field">
+                <label htmlFor="rollNo">Roll number</label>
+                <input id="rollNo" value={form.rollNo} onChange={set('rollNo')} required autoComplete="off" placeholder="e.g. 22CS10001" />
+              </div>
               <div className="field">
                 <label htmlFor="category">Category</label>
                 <select id="category" value={form.category} onChange={set('category')} required>
@@ -48,7 +62,7 @@ export default function NewComplaint() {
               </div>
               <div className="field">
                 <label htmlFor="room">Room number</label>
-                <input id="room" value={form.room} onChange={set('room')} placeholder="Optional" />
+                <input id="room" value={form.room} onChange={set('room')} required />
               </div>
             </div>
             <div className="field">
