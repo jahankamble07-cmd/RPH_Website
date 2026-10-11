@@ -19,13 +19,13 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgb(43 8 14 / 0.86) 0%, rgb(43 8 14 / 0.55) 48%, rgb(43 8 14 / 0.1) 100%);
+  background: linear-gradient(90deg, rgb(43 8 14 / 0.5) 0%, rgb(43 8 14 / 0.25) 50%, rgb(43 8 14 / 0.05) 100%);
 }
 
 .home-hero__body {
   position: relative;
   z-index: 1;
-  padding-block: 56px 96px;
+  padding-block: 56px 104px;
   color: var(--ivory);
 }
 
@@ -58,7 +58,10 @@
   margin: -52px 0 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  background: var(--ivory);
+  background: rgb(255 252 246 / 0.5);
+  border-radius: 22px;
+  backdrop-filter: blur(22px) saturate(170%);
+  -webkit-backdrop-filter: blur(22px) saturate(170%);
 }
 
 .stats__item {
@@ -101,7 +104,14 @@
 }
 
 .medals {
-  background: var(--maroon-deep);
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 120% at 0% 0%, rgb(184 137 43 / 0.35), transparent 60%),
+    radial-gradient(50% 120% at 100% 100%, rgb(214 58 0 / 0.25), transparent 60%),
+    linear-gradient(135deg, #5b1120, var(--maroon-deep));
+  border: 1px solid rgb(255 255 255 / 0.12);
+  box-shadow: 0 24px 50px rgb(71 13 24 / 0.25), var(--glass-dark-edge);
   color: var(--ivory);
   border-radius: var(--radius);
   padding: clamp(18px, 3vw, 28px);
@@ -137,10 +147,18 @@
   justify-items: center;
   gap: 10px;
   padding: 18px;
-  background: var(--ivory);
-  color: var(--ink);
+  background: rgb(255 255 255 / 0.1);
+  border: 1px solid rgb(255 255 255 / 0.22);
+  box-shadow: var(--glass-dark-edge);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--ivory);
   border-radius: var(--radius-sm);
   text-align: center;
+}
+
+.medal-card h3 {
+  color: var(--ivory);
 }
 
 .medal-card__icon {
@@ -149,7 +167,7 @@
   width: 68px;
   height: 68px;
   border-radius: 50%;
-  background: var(--band);
+  background: rgb(255 255 255 / 0.12);
   color: var(--gold);
   border: 2px solid var(--gold-light);
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
@@ -230,8 +248,9 @@
   justify-items: center;
   min-width: 52px;
   padding: 4px 8px;
-  border-radius: var(--radius-sm);
-  background: var(--band);
+  border-radius: 12px;
+  background: rgb(255 255 255 / 0.6);
+  border: 1px solid rgb(255 255 255 / 0.9);
   color: var(--maroon);
   font-size: var(--fs-xs);
 }

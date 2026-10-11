@@ -30,8 +30,8 @@ export default function Login() {
 
   return (
     <section className="login">
+      <img src={img('rp-hall')} alt="" className="login__bg kenburns" />
       <div className="login__visual">
-        <img src={img('rp-hall')} alt="" className="kenburns" />
         <div className="login__visual-body">
           <Logo size={84} className="login__logo rise" />
           <p className="login__hall rise" style={{ '--i': 1 }}>{SITE.name}</p>

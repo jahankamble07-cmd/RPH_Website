@@ -6,7 +6,9 @@ export default function FilmHero({ slides, className = '', children }) {
       <div className="film-hero__strip" aria-hidden="true">
         {strip.map((src, i) => <img key={i} src={src} alt="" />)}
       </div>
-      <div className="container film-hero__body">{children}</div>
+      <div className="container film-hero__body">
+        <div className="hero-glass">{children}</div>
+      </div>
     </section>
   )
 }

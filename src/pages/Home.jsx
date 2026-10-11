@@ -46,16 +46,18 @@ export default function Home() {
       <section className="home-hero">
         <img src={img('rp-hall')} alt="R.P. Hall of Residence building" className="home-hero__img kenburns" />
         <div className="container home-hero__body">
-          <p className="home-hero__name rise" style={{ '--i': 0 }}>{SITE.fullName}</p>
-          <h1 className="rise" style={{ '--i': 1 }}>{SITE.motto}</h1>
-          <p className="home-hero__hindi hindi rise" style={{ '--i': 2 }}>({SITE.mottoHindi})</p>
-          <p className="home-hero__text rise" style={{ '--i': 3 }}>
-            More than just a hostel, R.P. is a community that nurtures ideas, builds character and shapes
-            leaders for a better tomorrow.
-          </p>
-          <Link to="/our-legacy" className="btn btn--outline-light rise" style={{ '--i': 4 }}>
-            Explore Our Hall <Icon name="arrow" size={16} />
-          </Link>
+          <div className="hero-glass">
+            <p className="home-hero__name rise" style={{ '--i': 0 }}>{SITE.fullName}</p>
+            <h1 className="rise" style={{ '--i': 1 }}>{SITE.motto}</h1>
+            <p className="home-hero__hindi hindi rise" style={{ '--i': 2 }}>({SITE.mottoHindi})</p>
+            <p className="home-hero__text rise" style={{ '--i': 3 }}>
+              More than just a hostel, R.P. is a community that nurtures ideas, builds character and shapes
+              leaders for a better tomorrow.
+            </p>
+            <Link to="/our-legacy" className="btn btn--outline-light rise" style={{ '--i': 4 }}>
+              Explore Our Hall <Icon name="arrow" size={16} />
+            </Link>
+          </div>
         </div>
       </section>
 
