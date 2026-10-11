@@ -2,8 +2,10 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { can } from '../../auth/roles'
 import { useAuth } from '../../auth/useAuth'
+import FilmHero from '../../components/FilmHero'
 import Icon from '../../components/Icon'
 import Pills from '../../components/Pills'
+import Reveal from '../../components/Reveal'
 import SampleTag from '../../components/SampleTag'
 import { img } from '../../data/images'
 import {
@@ -27,14 +29,44 @@ function ProjectImage({ src }) {
   )
 }
 
-function PostAction({ user }) {
+const HERO_SLIDES = ['robotics', 'rp-hall', 'robot', 'drone', 'solar', 'illu-prep'].map(img)
+
+function PostAction({ user, className = 'btn' }) {
   if (can(user, 'innovation.postProject')) {
-    return <Link to="/innovation/post" className="btn"><Icon name="plus" size={16} /> Post a project</Link>
+    return <Link to="/innovation/post" className={className}><Icon name="plus" size={16} /> Post a project</Link>
   }
   if (can(user, 'innovation.postOpportunity')) {
-    return <Link to="/recruitment" className="btn"><Icon name="plus" size={16} /> Post an opportunity</Link>
+    return <Link to="/recruitment" className={className}><Icon name="plus" size={16} /> Post an opportunity</Link>
   }
   return null
+}
+
+// Highlighted call to post, shown at the top of the projects area.
+function PostStrip({ user }) {
+  let title = 'Building something? Post your project.'
+  let text = 'List it here so students across campus can find it and join your team.'
+  let action = <PostAction user={user} className="btn btn--donate" />
+  if (!can(user, 'innovation.postProject')) {
+    if (can(user, 'innovation.postOpportunity')) {
+      title = 'Hiring or mentoring? Post an opportunity.'
+      text = 'Openings you post appear under Explore Opportunities on this page.'
+    } else if (!user) {
+      text = 'Log in with your hall account to post a project.'
+      action = <Link to="/login?next=/innovation/post" className="btn btn--donate">Log in to post <Icon name="arrow" size={14} /></Link>
+    } else {
+      return null
+    }
+  }
+  return (
+    <Reveal className="post-strip">
+      <span className="post-strip__icon"><Icon name="rocket" size={26} /></span>
+      <div>
+        <h3>{title}</h3>
+        <p>{text}</p>
+      </div>
+      {action}
+    </Reveal>
+  )
 }
 
 function SubmitButton({ user }) {
@@ -76,21 +108,22 @@ export default function Innovation() {
 
   return (
     <>
-      <section className="inno-hero">
-        <div className="container inno-hero__grid">
-          <div>
-            <h1>Ideas that leave the classroom.</h1>
-            <p className="inno-hero__text">Showcasing the projects, research, startups and opportunities built by RPians.</p>
-            <PostAction user={user} />
-          </div>
-          <div className="inno-hero__photos" aria-hidden="true">
-            {['rp-hall', 'robotics', 'robot', 'drone'].map((k) => <img key={k} src={img(k)} alt="" />)}
-          </div>
+      <FilmHero slides={HERO_SLIDES} className="inno-hero">
+        <h1 className="rise" style={{ '--i': 0 }}>Ideas that leave <em>the classroom.</em></h1>
+        <p className="rise" style={{ '--i': 1 }}>Showcasing the projects, research, startups and opportunities built by RPians.</p>
+        <div className="rise" style={{ '--i': 2 }}>
+          <PostAction user={user} className="btn btn--gold" />
         </div>
-      </section>
+        <nav className="film-hero__links rise" style={{ '--i': 3 }} aria-label="On this page">
+          <a href="#building">What RPians are building</a>
+          <a href="#featured">Featured Projects</a>
+          <a href="#contribute">Contribute to Projects</a>
+          <a href="#opportunities">Opportunities</a>
+        </nav>
+      </FilmHero>
 
       <section className="container">
-        <dl className="inno-stats card">
+        <Reveal as="dl" className="inno-stats card" variant="zoom">
           {INNOVATION_STATS.map((s) => (
             <div key={s.label}>
               <Icon name={s.icon} size={22} />
@@ -98,24 +131,27 @@ export default function Innovation() {
               <dt>{s.label}</dt>
             </div>
           ))}
-        </dl>
+        </Reveal>
       </section>
 
-      <section className="section">
+      <section className="section" id="building">
         <div className="container">
-          <div className="section-head">
+          <PostStrip user={user} />
+          <Reveal className="section-head">
             <h2>What are RPians building?</h2>
-          </div>
+          </Reveal>
           <div className="build-grid">
-            {BUILD_AREAS.map((a) => (
-              <button key={a.id} type="button" className="build card" onClick={() => pickArea(a.id)}>
-                <img src={img(a.image)} alt="" className="cover" loading="lazy" />
-                <span className="build__icon"><Icon name={a.icon} size={18} /></span>
-                <span className="build__body">
-                  <h3>{a.title}</h3>
-                  <span className="muted small">{a.text}</span>
-                </span>
-              </button>
+            {BUILD_AREAS.map((a, i) => (
+              <Reveal key={a.id} delay={i * 80}>
+                <button type="button" className="build card lift" onClick={() => pickArea(a.id)}>
+                  <img src={img(a.image)} alt="" className="cover" loading="lazy" />
+                  <span className="build__icon"><Icon name={a.icon} size={18} /></span>
+                  <span className="build__body">
+                    <span className="build__title">{a.title}</span>
+                    <span className="muted small">{a.text}</span>
+                  </span>
+                </button>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -134,7 +170,7 @@ export default function Innovation() {
           </div>
           {lead ? (
             <>
-              <Link to={`/innovation/projects/${lead.id}`} className="feature card">
+              <Link to={`/innovation/projects/${lead.id}`} className="feature card lift">
                 <ProjectImage src={lead.image} />
                 <div className="feature__body">
                   <div className="chips"><span className="chip chip--maroon">Featured</span>{lead.sample && <SampleTag />}</div>
@@ -146,7 +182,7 @@ export default function Innovation() {
               </Link>
               <div className="grid grid--4 feature-list">
                 {others.map((p) => (
-                  <Link key={p.id} to={`/innovation/projects/${p.id}`} className="card tile-link">
+                  <Link key={p.id} to={`/innovation/projects/${p.id}`} className="card tile-link lift">
                     <ProjectImage src={p.image} />
                     <div className="card-body stack">
                       <h3>{p.title} {p.sample && <SampleTag />}</h3>
@@ -163,7 +199,7 @@ export default function Innovation() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section" id="contribute">
         <div className="container">
           <div className="section-head">
             <div>
@@ -174,7 +210,7 @@ export default function Innovation() {
           </div>
           <div className="ongoing">
             {ongoing.map((p) => (
-              <article key={p.id} className="card ongoing__card">
+              <article key={p.id} className="card ongoing__card lift">
                 {p.image ? <img className="cover" src={img(p.image)} alt="" loading="lazy" /> : <div className="cover--empty"><Icon name="users" size={28} /></div>}
                 <div className="card-body stack">
                   <div className="chips">
@@ -228,13 +264,13 @@ export default function Innovation() {
 
       <section className="section">
         <div className="container">
-          <div className="cta">
+          <Reveal className="cta" variant="zoom">
             <div>
               <h2>Have something worth building?</h2>
               <p>Add your project to find collaborators.</p>
             </div>
             <SubmitButton user={user} />
-          </div>
+          </Reveal>
         </div>
       </section>
 

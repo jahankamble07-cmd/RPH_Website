@@ -97,7 +97,7 @@ export default function Funding() {
           </div>
           <div className="grid grid--4">
             {INITIATIVES.map((it) => (
-              <article key={it.id} className="card initiative">
+              <article key={it.id} className="card initiative lift">
                 <img src={img(it.image)} alt="" className="cover" loading="lazy" />
                 <div className="card-body stack">
                   <div className="chips">
@@ -128,7 +128,7 @@ export default function Funding() {
             </div>
             <div className="needs">
               {FUNDING_NEEDS.map((n) => (
-                <article key={n.id} className="card need">
+                <article key={n.id} className="card need lift">
                   <img src={img(n.image)} alt="" className="cover" loading="lazy" />
                   <div className="card-body stack">
                     <h3>{n.title} {n.sample && <SampleTag />}</h3>
@@ -182,7 +182,7 @@ export default function Funding() {
               <button
                 key={w.id}
                 type="button"
-                className="card way"
+                className="card way lift"
                 onClick={() => setModal({ type: w.id })}
               >
                 <span className="way__icon"><Icon name={w.icon} size={22} /></span>

@@ -4,7 +4,7 @@ import { applyHref, formatDate } from '../../lib/format'
 export default function OpportunityCard({ o, onRemove }) {
   const href = applyHref(o.apply)
   return (
-    <article className="opp card">
+    <article className="opp card lift">
       <div className="opp__head">
         <span className="opp__logo" aria-hidden="true">{o.company.slice(0, 1).toUpperCase()}</span>
         <div>
