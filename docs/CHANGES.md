@@ -164,6 +164,19 @@ R3-12. [x] Every login lands on Home; the old return-to-previous-page behaviour 
 
 Verification: build and lint clean; scripted run through all four roles covering each item above (landing page, nav, complaint toggle, opportunity visibility and expiry, deadline validation, pledge status flow from alumni to warden and back); no overflow at 320 to 1024px; GC line fully drawn at page bottom at 1920, 1366 and 375px.
 
+## Round 4: glass look (requested in chat, 11 Oct 2026)
+
+Replaces the original "no glassmorphism" rule at the user's request.
+
+R4-1. [x] Glass theme layer: warm textured ground (light pools plus fine grain), frosted translucent cards, pills, inputs, buttons with a glossy edge, frosted dialogs. `src/styles/glass.css`
+R4-2. [x] Frosted sticky header that the page scrolls under. `src/styles/glass.css`
+R4-3. [x] Frosted text panels over hero photos on Home, Our Legacy, Innovation and every inner-page header; glass stats strips over the hero edge. `src/pages/Home.jsx`, `src/components/FilmHero.jsx`, `src/components/PageHero.jsx`, `src/styles/components.css`
+R4-4. [x] Glass captions on the carousel, highlights mosaic and album banners; glass Medal Tally, tradition cards and GC timeline cards; glass photo viewer controls. `src/pages/Home.css`, `src/pages/Legacy.css`, `src/styles/gallery.css`, `src/styles/components.css`
+R4-5. [x] Login: hall photo fills the page, brand and form on frosted panels. `src/pages/Login.jsx`, `src/pages/Login.css`
+R4-6. [x] Phones: app-style frosted tab bar (Home, Legacy, Gallery, Innovation, Menu) as in the reference image; Menu opens a glass sheet with the role's other pages, Donate for alumni, and log in/out. `src/components/BottomNav.jsx`, `src/components/Layout.jsx`, `src/styles/glass.css`
+
+Verification: build and lint clean; overflow audit clean at 320 to 768px for all roles; role walkthrough unchanged.
+
 ## Open questions
 
 Q1. Reference-screenshot copy. Current choice: headings and taglines used as shown; data treated as samples.
