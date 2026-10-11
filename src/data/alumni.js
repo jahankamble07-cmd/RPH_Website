@@ -23,4 +23,6 @@ const template = (era) => ({
   photo: null,
 })
 
-export const ALUMNI = [template('1970-1999'), template('2000-2010'), template('2011-present')]
+const ERAS_IN_ORDER = ['1970-1999', '2000-2010', '2011-present']
+
+export const ALUMNI = ERAS_IN_ORDER.flatMap((era) => Array.from({ length: 4 }, () => template(era)))

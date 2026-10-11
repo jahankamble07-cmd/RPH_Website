@@ -29,6 +29,3 @@ export const GC_HISTORY = Array.from({ length: 6 }, (_, i) => ({
   result: 'GC result',
 }))
 
-// TODO(Q6): dated milestones for the chronological timeline.
-// Format: { year: '1959', title, text, photo }
-export const MILESTONES = []
