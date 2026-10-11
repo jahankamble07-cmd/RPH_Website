@@ -13,6 +13,8 @@ How content was handled:
 
 ## A. Global design
 
+> Round 6 replaced the PDF palette (items 3 and 4) with the AboutCloud palette; see R6-1.
+
 1. [~] Logo from page 1. Hand-traced SVG, close to the original; replace with the official file (Q2). `src/components/Logo.jsx`, `src/assets/rp-logo.svg`, `public/favicon.svg`
 2. [x] Logo is the Home link, no "Home" text in the navbar. `src/components/Navbar.jsx`
 3. [x] Palette tokens (Cream `#FAF3E6`, Card ivory `#FFFAF1`, Stats band `#F3E6CF`, Maroon `#6B1523`, Deep maroon `#470D18`, Gold `#B8892B`, Light gold `#F3D58A`). `src/styles/tokens.css`
@@ -187,6 +189,13 @@ R5-5. [x] Navbar hover: pill highlight, gold underline drawn from the centre, sm
 R5-6. [x] README merge conflict from the GitHub merge resolved (kept the project README).
 
 Verification: build and lint clean; profile flow tested (photo upload, invalid roll number rejected, save, photo in navbar, logged-out redirect); no overflow at 320, 375 and 440px for any role.
+
+## Round 6: new palette and motion (requested in chat, 11 Oct 2026)
+
+R6-1. [x] Whole site moved to the supplied palette: Vibrant Blue #2D8CFF (buttons, active pills, accents, links on dark), Navy #0A0F2C (headings, text, dark sections, footer), White (cards), Light Gray #F0F1F3 (page ground). Every hard-coded maroon, gold and cream value was remapped, not only the tokens. Medal gold/silver/bronze, the green "resolved" colour and the red error colour were kept for meaning. `src/styles/*.css`, `src/pages/**/*.css`, `public/favicon.svg`
+R6-2. [x] Motion: light sweep across buttons on hover, pulse on Donate, slow blue glows behind pages, drifting dot grid on hero photos (as in the palette artwork), stat figures with "+" count up when shown, section rules draw in, blue edge on card hover, moving light along the footer top. All off under the system reduce-motion setting. `src/styles/motion.css`, `src/components/CountUp.jsx`, `src/components/FilmHero.jsx`, `src/components/PageHero.jsx`, `src/pages/Home.jsx`, `src/pages/innovation/Innovation.jsx`
+
+Verification: build and lint clean; every page checked on desktop and at 440px; overflow audit clean at 320, 375 and 440px for all roles.
 
 ## Open questions
 
