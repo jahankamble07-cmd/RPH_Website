@@ -71,6 +71,15 @@ export default function Home() {
         </Reveal>
       </div>
 
+      {(showNotices || showEvents) && (
+        <section className="section section--ivory">
+          <Reveal className="container home-board">
+            {showNotices && <NoticeBoard />}
+            {showEvents && <EventsCalendar />}
+          </Reveal>
+        </section>
+      )}
+
       <section className="section">
         <div className="container">
           <Reveal className="medals">
@@ -109,14 +118,6 @@ export default function Home() {
         </div>
       </section>
 
-      {(showNotices || showEvents) && (
-        <section className="section section--ivory">
-          <Reveal className="container home-board">
-            {showNotices && <NoticeBoard />}
-            {showEvents && <EventsCalendar />}
-          </Reveal>
-        </section>
-      )}
 
       <section className="section">
         <div className="container">
