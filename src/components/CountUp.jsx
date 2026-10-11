@@ -33,10 +33,11 @@ export default function CountUp({ value, duration = 1400 }) {
     }
   }, [animate, target, duration])
 
-  if (!animate) return <span>{value}</span>
+  const plus = match?.[2] ? <span className="count-plus">+</span> : null
+  if (!animate) return <span>{match ? <>{match[1]}{plus}</> : value}</span>
   return (
     <span ref={ref} aria-label={value}>
-      <span aria-hidden="true">{n}{match[2]}</span>
+      <span aria-hidden="true">{n}{plus}</span>
     </span>
   )
 }

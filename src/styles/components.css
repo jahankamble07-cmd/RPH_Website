@@ -80,11 +80,11 @@
   width: var(--face-w);
   height: 100%;
   margin-left: calc(var(--face-w) / -2);
-  border-radius: 14px;
+  border-radius: 6px;
   overflow: hidden;
   background: var(--maroon-deep);
   backface-visibility: hidden;
-  box-shadow: 0 24px 50px rgb(10 15 44 / 0.28);
+  box-shadow: 0 24px 50px rgb(26 25 23 / 0.28);
   transition:
     transform 0.95s cubic-bezier(0.65, 0, 0.35, 1),
     transform-origin 0.95s cubic-bezier(0.65, 0, 0.35, 1),
@@ -95,7 +95,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: rgb(5 8 25 / 0.5);
+  background: rgb(23 21 18 / 0.5);
   transition: opacity 0.95s ease;
   pointer-events: none;
 }
@@ -132,7 +132,7 @@
   justify-content: space-between;
   gap: 10px 12px;
   padding: 56px 22px 20px;
-  background: linear-gradient(0deg, rgb(5 8 25 / 0.92), transparent);
+  background: linear-gradient(0deg, rgb(23 21 18 / 0.92), transparent);
   color: var(--ivory);
 }
 
@@ -142,7 +142,7 @@
 
 .cube__caption p {
   font-size: var(--fs-small);
-  color: #dce4f5;
+  color: #ece5d8;
 }
 
 .cube__face.is-active .cube__caption > div {
@@ -171,7 +171,7 @@
 
 .cube__dots button[aria-current='true'] {
   width: 44px;
-  background: rgb(10 15 44 / 0.25);
+  background: rgb(26 25 23 / 0.25);
 }
 
 /* Progress fill shows time until the next slide */
@@ -230,7 +230,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgb(10 15 44 / 0.88), rgb(10 15 44 / 0.55) 55%, rgb(10 15 44 / 0.25));
+  background: linear-gradient(90deg, rgb(26 25 23 / 0.88), rgb(26 25 23 / 0.55) 55%, rgb(26 25 23 / 0.25));
 }
 
 .film-hero__body {
@@ -254,7 +254,7 @@
 .film-hero__body > p {
   max-width: 480px;
   margin: 16px 0 24px;
-  color: #d9e2f5;
+  color: #ece5d8;
 }
 
 .film-hero__links {
@@ -266,7 +266,7 @@
 }
 
 .film-hero__links a {
-  color: #ccd6ee;
+  color: #ddd4c4;
   text-decoration: none;
 }
 
@@ -296,7 +296,7 @@
 .portrait {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(150deg, #5aa6ff, #1b3c8c 70%, #0a0f2c);
+  background: linear-gradient(150deg, #cdbfa8, #8f7f69 60%, #4a4239);
 }
 
 .portrait img {
@@ -314,7 +314,7 @@
   color: rgb(255 255 255 / 0.92);
   font-family: var(--font-display);
   font-size: clamp(1.8rem, 3vw, 2.6rem);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.04em;
 }
 

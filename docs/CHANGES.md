@@ -13,7 +13,7 @@ How content was handled:
 
 ## A. Global design
 
-> Round 6 replaced the PDF palette (items 3 and 4) with the AboutCloud palette; see R6-1.
+> Round 8 replaced the palette and fonts (items 3 to 5) with the editorial look; see R8-1 and R8-2.
 
 1. [~] Logo from page 1. Hand-traced SVG, close to the original; replace with the official file (Q2). `src/components/Logo.jsx`, `src/assets/rp-logo.svg`, `public/favicon.svg`
 2. [x] Logo is the Home link, no "Home" text in the navbar. `src/components/Navbar.jsx`
@@ -200,6 +200,16 @@ Verification: build and lint clean; every page checked on desktop and at 440px; 
 ## Round 7 (requested in chat, 11 Oct 2026)
 
 R7-1. [x] GC year pop-up redesigned: navy card that springs open, trophy drops in with slowly turning light rays, podium blocks (2nd, 1st, 3rd) rise one after another with medals popping in, per-place rows of event chips that link to their gallery pages, and a fixed action bar with a large "View GC photos" button. Opens as a bottom sheet on phones. Checked with temporary sample podium data, then reverted; real entries still show the "to be added" note (Q6). `src/features/legacy/GcDialog.jsx`, `src/pages/Legacy.css`, `src/pages/Legacy.jsx`, `src/components/Modal.jsx`
+
+## Round 8: editorial look (requested in chat, 11 Oct 2026)
+
+Replaces the blue and navy palette from round 6.
+
+R8-1. [x] Palette after the Palazzo Daniele and Forma references: paper #EFEBE3 page, #F7F4EE cards, ink #1A1917 text and headings, taupe and stone accents, espresso dark sections, terracotta #D9482A for the main calls to action (Log in, Donate, primary buttons). All hard-coded colours remapped. `src/styles/*.css`, `src/pages/**/*.css`, `public/favicon.svg`
+R8-2. [x] Type: Bodoni Moda for headings and figures (regular weight, text optical size so hairlines stay visible), Jost for text; navigation, buttons, pills, field labels and stat captions in small spaced capitals; wider-tracked wordmark. `index.html`, `src/styles/tokens.css`, `src/styles/base.css`, `src/styles/glass.css`, `src/styles/layout.css`
+R8-3. [x] Shapes: crisp 4 to 6px corners on cards and panels, hairline borders, flatter shadows; outlined pill for the current page in the navbar. `src/styles/*`
+
+Verification: build and lint clean; pages checked on desktop and at 440px; overflow audit clean at 320, 375 and 440px for all roles.
 
 ## Open questions
 

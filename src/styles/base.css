@@ -9,13 +9,20 @@ html {
   scroll-padding-top: calc(var(--nav-h) + 12px);
 }
 
+/* Bodoni Moda's display optical size has hairlines too thin for screens;
+   a text-size cut keeps the contrast while staying legible. */
+:root {
+  font-variation-settings: 'opsz' 28;
+}
+
 body {
   margin: 0;
   background: var(--cream);
   color: var(--ink);
   font-family: var(--font-body);
-  font-size: var(--fs-body);
-  line-height: 1.6;
+  font-size: 1.02rem;
+  font-weight: 400;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -47,14 +54,15 @@ h2,
 h3 {
   font-family: var(--font-display);
   color: var(--maroon);
-  line-height: 1.2;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
   margin: 0;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 h1 {
   font-size: var(--fs-h1);
-  font-weight: 700;
+  font-weight: 400;
 }
 
 h2 {
@@ -68,7 +76,7 @@ h3 {
 h4 {
   font-family: var(--font-body);
   font-size: var(--fs-body);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--ink);
   margin: 0;
 }
@@ -378,9 +386,9 @@ p {
   position: relative;
   color: var(--ivory);
   background:
-    radial-gradient(50% 140% at 10% 0%, rgb(45 140 255 / 0.45), transparent 60%),
-    radial-gradient(45% 140% at 95% 100%, rgb(45 140 255 / 0.3), transparent 60%),
-    linear-gradient(135deg, #070b24, var(--maroon-deep));
+    radial-gradient(50% 140% at 10% 0%, rgb(160 138 108 / 0.45), transparent 60%),
+    radial-gradient(45% 140% at 95% 100%, rgb(160 138 108 / 0.3), transparent 60%),
+    linear-gradient(135deg, #171512, var(--maroon-deep));
   overflow: hidden;
 }
 
@@ -405,7 +413,7 @@ p {
 .page-hero p {
   max-width: 620px;
   margin-top: 10px;
-  color: #d9e2f5;
+  color: #ece5d8;
 }
 
 /* Breadcrumbs */
@@ -518,7 +526,7 @@ p {
   display: grid;
   place-items: center;
   padding: 16px;
-  background: rgb(10 15 44 / 0.62);
+  background: rgb(26 25 23 / 0.62);
 }
 
 .modal__card {
@@ -647,4 +655,21 @@ p {
 .head-with-icon > svg {
   flex-shrink: 0;
   margin-top: 4px;
+}
+
+/* Editorial labels: small spaced capitals for stat captions */
+.stats dt,
+.inno-stats dt,
+.status-cards dt,
+.fr-summary dt,
+.profile-stats dt {
+  font-size: 0.68rem;
+  letter-spacing: var(--tracking);
+  text-transform: uppercase;
+}
+
+.count-plus {
+  font-family: var(--font-body);
+  font-weight: 300;
+  margin-left: 0.04em;
 }

@@ -41,13 +41,13 @@
   z-index: 120;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  background: radial-gradient(ellipse at 50% 40%, #0f1530, #05060f 70%);
-  color: #e3e8f4;
+  background: radial-gradient(ellipse at 50% 40%, #24211d, #100f0d 70%);
+  color: #efe9de;
 }
 
 .lightbox__bar {
   margin: 12px var(--gutter) 0;
-  border-radius: 18px;
+  border-radius: 6px;
   background: rgb(255 255 255 / 0.06);
   border: 1px solid rgb(255 255 255 / 0.12);
   backdrop-filter: blur(14px);
@@ -64,7 +64,7 @@
 
 .lightbox__count {
   font-size: var(--fs-small);
-  color: #a0abc9;
+  color: #b3a693;
 }
 
 .lightbox__stage {
@@ -177,7 +177,7 @@
 /* Album banner on category, sport and event pages */
 .album-banner {
   position: relative;
-  border-radius: 22px;
+  border-radius: 6px;
   overflow: hidden;
   background: var(--maroon-deep);
   color: var(--ivory);
@@ -196,7 +196,7 @@
 .album-banner__body {
   position: relative;
   padding: clamp(28px, 6vw, 56px) clamp(18px, 4vw, 36px);
-  background: linear-gradient(90deg, rgb(10 15 44 / 0.85), rgb(10 15 44 / 0.2));
+  background: linear-gradient(90deg, rgb(26 25 23 / 0.85), rgb(26 25 23 / 0.2));
 }
 
 .album-banner__body > * {
@@ -210,7 +210,7 @@
 
 .album-banner p {
   margin-top: 6px;
-  color: #d9e2f5;
+  color: #ece5d8;
 }
 
 .year-block {
@@ -287,8 +287,8 @@
   height: 100%;
   padding: 0;
   border: 0;
-  border-radius: 18px;
-  box-shadow: 0 12px 30px rgb(10 15 44 / 0.16);
+  border-radius: 6px;
+  box-shadow: 0 12px 30px rgb(26 25 23 / 0.16);
   overflow: hidden;
   cursor: zoom-in;
   background: var(--maroon-deep);
@@ -305,7 +305,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, rgb(5 8 25 / 0.8), transparent 55%);
+  background: linear-gradient(0deg, rgb(23 21 18 / 0.8), transparent 55%);
   opacity: 0.75;
   transition: opacity 0.5s;
 }
@@ -346,7 +346,7 @@
   max-height: 0;
   overflow: hidden;
   font-size: var(--fs-xs);
-  color: #dce4f5;
+  color: #ece5d8;
   opacity: 0;
   transition: opacity 0.4s, max-height 0.4s;
 }

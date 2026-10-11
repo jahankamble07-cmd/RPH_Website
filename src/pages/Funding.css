@@ -175,7 +175,7 @@
   min-height: 48px;
   padding-inline: 24px;
   font-size: 1rem;
-  box-shadow: 0 8px 24px rgb(45 140 255 / 0.35);
+  box-shadow: 0 8px 24px rgb(160 138 108 / 0.35);
 }
 
 @media (max-width: 600px) {
@@ -208,7 +208,7 @@
   margin: 4px 0 0;
   font-family: var(--font-display);
   font-size: 1.6rem;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--maroon);
 }
 
@@ -249,12 +249,12 @@
 }
 
 .support-status--sent {
-  background: rgb(45 140 255 / 0.15);
-  color: #1a5fc2;
+  background: rgb(160 138 108 / 0.15);
+  color: #bf3b20;
 }
 
 .support-status--contacted {
-  background: rgb(10 15 44 / 0.1);
+  background: rgb(26 25 23 / 0.1);
   color: var(--maroon);
 }
 

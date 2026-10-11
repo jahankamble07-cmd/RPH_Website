@@ -6,10 +6,10 @@
   --glass-strong: rgb(255 255 255 / 0.74);
   --glass-border: rgb(255 255 255 / 0.7);
   --glass-edge: inset 0 1px 0 rgb(255 255 255 / 0.75);
-  --glass-shadow: 0 10px 30px rgb(10 15 44 / 0.1), var(--glass-edge);
+  --glass-shadow: 0 10px 30px rgb(26 25 23 / 0.1), var(--glass-edge);
   --glass-blur: blur(16px) saturate(160%);
 
-  --glass-dark: rgb(6 9 32 / 0.42);
+  --glass-dark: rgb(23 21 18 / 0.42);
   --glass-dark-border: rgb(255 255 255 / 0.2);
   --glass-dark-edge: inset 0 1px 0 rgb(255 255 255 / 0.14);
 
@@ -29,149 +29,190 @@ body::before {
   z-index: -1;
   pointer-events: none;
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.04 0 0 0 0 0.06 0 0 0 0 0.17 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
-    radial-gradient(55vmax 45vmax at 8% 6%, rgb(140 196 255 / 0.55), transparent 62%),
-    radial-gradient(45vmax 40vmax at 96% 32%, rgb(45 140 255 / 0.12), transparent 60%),
-    radial-gradient(50vmax 45vmax at 70% 96%, rgb(10 15 44 / 0.14), transparent 62%),
-    radial-gradient(40vmax 40vmax at 4% 70%, rgb(45 140 255 / 0.22), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.16 0 0 0 0 0.13 0 0 0 0 0.09 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(55vmax 45vmax at 8% 6%, rgb(214 198 171 / 0.55), transparent 62%),
+    radial-gradient(45vmax 40vmax at 96% 32%, rgb(160 138 108 / 0.12), transparent 60%),
+    radial-gradient(50vmax 45vmax at 70% 96%, rgb(26 25 23 / 0.14), transparent 62%),
+    radial-gradient(40vmax 40vmax at 4% 70%, rgb(160 138 108 / 0.22), transparent 60%),
     var(--cream);
 }
 
 /* Section bands become translucent so the ground shows through */
 .section--band {
-  background: rgb(228 232 240 / 0.45);
+  background: rgb(229 223 212 / 0.45);
 }
 
 .section--ivory {
   background: rgb(255 255 255 / 0.35);
 }
 
-/* Surfaces */
+/* Surfaces: paper cards with hairline edges */
 .card {
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
+  background: rgb(250 248 243 / 0.82);
+  border: 1px solid rgb(26 25 23 / 0.1);
+  box-shadow: 0 1px 2px rgb(26 25 23 / 0.04), 0 14px 34px rgb(26 25 23 / 0.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .pending,
 .empty {
-  background: rgb(255 255 255 / 0.32);
-  border-color: rgb(45 140 255 / 0.45);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgb(250 248 243 / 0.5);
+  border-color: rgb(26 25 23 / 0.2);
 }
 
 .chip {
-  background: rgb(255 255 255 / 0.55);
-  border: 1px solid rgb(255 255 255 / 0.8);
+  background: rgb(26 25 23 / 0.05);
+  border: 1px solid rgb(26 25 23 / 0.1);
+  color: var(--ink-soft);
 }
 
 .chip--maroon {
-  background: linear-gradient(180deg, #1e2a5a, var(--maroon));
-  border-color: transparent;
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--ivory);
 }
 
 /* Controls */
 .btn {
-  background: linear-gradient(180deg, #4d9fff 0%, var(--blue) 55%, #1a6fe0 100%);
-  border-color: rgb(255 255 255 / 0.18);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.3), 0 8px 20px rgb(45 140 255 / 0.32);
+  min-height: 44px;
+  padding: 10px 24px;
+  background: var(--blue);
+  border: 1px solid var(--blue);
+  color: #fff;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking);
+  text-transform: uppercase;
+  box-shadow: none;
 }
 
 .btn:hover {
-  background: linear-gradient(180deg, #3a93ff, #1a6fe0);
-  border-color: rgb(255 255 255 / 0.18);
+  background: #bf3b20;
+  border-color: #bf3b20;
+}
+
+.btn--small {
+  min-height: 36px;
+  padding: 6px 16px;
+  font-size: 0.68rem;
 }
 
 .btn--outline,
 .btn--light {
-  background: rgb(255 255 255 / 0.5);
-  border-color: rgb(10 15 44 / 0.35);
-  color: var(--maroon);
-  box-shadow: var(--glass-edge), 0 4px 12px rgb(10 15 44 / 0.08);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: transparent;
+  border-color: rgb(26 25 23 / 0.45);
+  color: var(--ink);
 }
 
 .btn--light {
-  background: rgb(255 255 255 / 0.88);
-  border-color: rgb(255 255 255 / 0.9);
+  background: var(--ivory);
+  border-color: var(--ivory);
 }
 
 .btn--outline:hover,
 .btn--light:hover {
-  background: var(--maroon);
-  border-color: var(--maroon);
-  color: var(--white);
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--ivory);
 }
 
 .btn--outline-light {
-  background: rgb(255 255 255 / 0.12);
-  border-color: rgb(255 255 255 / 0.55);
+  background: transparent;
+  border-color: rgb(255 255 255 / 0.6);
+  color: #fff;
+}
+
+.btn--outline-light:hover {
+  background: var(--ivory);
+  border-color: var(--ivory);
+  color: var(--ink);
 }
 
 .btn--donate {
-  background: linear-gradient(180deg, #5aa6ff, var(--flame) 55%, #1a6fe0);
-  border-color: rgb(255 255 255 / 0.15);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.3), 0 8px 20px rgb(45 140 255 / 0.3);
+  background: var(--blue);
+  border-color: var(--blue);
 }
 
 .btn--donate:hover {
-  background: linear-gradient(180deg, var(--flame), var(--brick));
+  background: #bf3b20;
+  border-color: #bf3b20;
 }
 
 .btn--gold {
-  background: linear-gradient(180deg, #5aa6ff, var(--gold) 60%, #1a6fe0);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.35), 0 8px 20px rgb(45 140 255 / 0.3);
+  background: var(--gold-light);
+  border-color: var(--gold-light);
+  color: var(--ink);
+}
+
+.btn--gold:hover {
+  background: var(--ivory);
+  border-color: var(--ivory);
+  color: var(--ink);
 }
 
 .icon-btn {
-  background: rgb(255 255 255 / 0.55);
-  border: 1px solid rgb(255 255 255 / 0.85);
-  box-shadow: var(--glass-edge), 0 4px 12px rgb(10 15 44 / 0.1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgb(250 248 243 / 0.7);
+  border: 1px solid rgb(26 25 23 / 0.18);
+  box-shadow: none;
 }
 
 .pill {
-  background: rgb(255 255 255 / 0.45);
-  border: 1px solid rgb(10 15 44 / 0.22);
-  box-shadow: var(--glass-edge);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: transparent;
+  border: 1px solid rgb(26 25 23 / 0.3);
+  color: var(--ink-soft);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 8px 18px;
   transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.pill:hover {
+  border-color: var(--ink);
+  color: var(--ink);
 }
 
 .pill[aria-pressed='true'],
 .pill[aria-selected='true'] {
-  background: linear-gradient(180deg, #4d9fff, var(--blue));
-  border-color: transparent;
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.25), 0 4px 14px rgb(45 140 255 / 0.3);
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--ivory);
+  box-shadow: none;
 }
 
 .field input,
 .field select,
 .field textarea,
 .input {
-  background: rgb(255 255 255 / 0.68);
-  border-color: rgb(10 15 44 / 0.18);
-  box-shadow: inset 0 1px 2px rgb(10 15 44 / 0.05);
+  background: rgb(255 255 255 / 0.7);
+  border-color: rgb(26 25 23 / 0.18);
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+.field label,
+.field .label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 /* Signed-in account button stays filled */
 .nav-user__btn {
-  background: linear-gradient(180deg, #1e2a5a, var(--maroon));
+  background: var(--ink);
   border-color: rgb(255 255 255 / 0.3);
   color: var(--ivory);
 }
 
 /* Header: frosted bar the page scrolls under */
 .nav {
-  background: rgb(248 249 252 / 0.58);
-  border-bottom: 1px solid rgb(255 255 255 / 0.55);
-  box-shadow: 0 6px 24px rgb(10 15 44 / 0.06);
+  background: rgb(239 235 227 / 0.82);
+  border-bottom: 1px solid rgb(26 25 23 / 0.12);
+  box-shadow: none;
   backdrop-filter: blur(20px) saturate(170%);
   -webkit-backdrop-filter: blur(20px) saturate(170%);
 }
@@ -183,7 +224,7 @@ body::before {
 
 /* Dialogs */
 .modal {
-  background: rgb(6 9 32 / 0.4);
+  background: rgb(23 21 18 / 0.4);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   animation: fade-in 0.25s ease;
@@ -253,10 +294,10 @@ body::before {
     grid-template-columns: repeat(5, 1fr);
     height: 60px;
     padding: 0 4px;
-    border-radius: 22px;
-    background: rgb(248 249 252 / 0.62);
+    border-radius: 6px;
+    background: rgb(247 244 238 / 0.62);
     border: 1px solid rgb(255 255 255 / 0.7);
-    box-shadow: 0 12px 32px rgb(10 15 44 / 0.18), var(--glass-edge);
+    box-shadow: 0 12px 32px rgb(26 25 23 / 0.18), var(--glass-edge);
     backdrop-filter: blur(22px) saturate(180%);
     -webkit-backdrop-filter: blur(22px) saturate(180%);
   }
@@ -316,7 +357,7 @@ body::before {
   z-index: 90;
   display: flex;
   align-items: flex-end;
-  background: rgb(6 9 32 / 0.3);
+  background: rgb(23 21 18 / 0.3);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   animation: fade-in 0.2s ease;
@@ -330,7 +371,7 @@ body::before {
   border-radius: 24px 24px 0 0;
   background: rgb(255 255 255 / 0.82);
   border-top: 1px solid rgb(255 255 255 / 0.85);
-  box-shadow: 0 -12px 40px rgb(10 15 44 / 0.2);
+  box-shadow: 0 -12px 40px rgb(26 25 23 / 0.2);
   backdrop-filter: blur(26px) saturate(180%);
   -webkit-backdrop-filter: blur(26px) saturate(180%);
   animation: sheet-up 0.38s cubic-bezier(0.22, 1, 0.36, 1);
@@ -348,7 +389,7 @@ body::before {
   height: 4px;
   margin: 0 auto 14px;
   border-radius: 4px;
-  background: rgb(10 15 44 / 0.25);
+  background: rgb(26 25 23 / 0.25);
 }
 
 .sheet__user {
@@ -357,7 +398,7 @@ body::before {
   gap: 12px;
   padding-bottom: 14px;
   margin-bottom: 8px;
-  border-bottom: 1px solid rgb(10 15 44 / 0.12);
+  border-bottom: 1px solid rgb(26 25 23 / 0.12);
 }
 
 .sheet__user div {
@@ -375,7 +416,7 @@ body::before {
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background: linear-gradient(180deg, #1e2a5a, var(--maroon));
+  background: linear-gradient(180deg, #3a3631, var(--maroon));
   color: var(--ivory);
 }
 
@@ -398,7 +439,7 @@ body::before {
   align-items: center;
   gap: 12px;
   padding: 12px 10px;
-  border-radius: 12px;
+  border-radius: 6px;
   color: var(--ink);
   font-weight: 600;
   text-decoration: none;
