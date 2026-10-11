@@ -8,8 +8,8 @@ import Pills from '../components/Pills'
 import { img } from '../data/images'
 import { OPPORTUNITY_TYPES } from '../data/innovation'
 import OpportunityCard from '../features/innovation/OpportunityCard'
+import { todayISO, useOpportunities } from '../features/innovation/useOpportunities'
 import { splitList } from '../lib/format'
-import { COLLECTIONS, useCollection } from '../lib/store'
 import './innovation/Innovation.css'
 import './Recruitment.css'
 
@@ -22,8 +22,12 @@ function PostForm({ onClose, onSave }) {
 
   const submit = (e) => {
     e.preventDefault()
-    if (!form.company.trim() || !form.role.trim() || !form.apply.trim()) {
-      setError('Company, role and how to apply are required.')
+    if (!form.company.trim() || !form.role.trim() || !form.apply.trim() || !form.deadline) {
+      setError('Company, role, deadline and how to apply are required.')
+      return
+    }
+    if (form.deadline < todayISO()) {
+      setError('The deadline cannot be in the past.')
       return
     }
     onSave({ ...form, skills: splitList(form.skills) })
@@ -55,8 +59,9 @@ function PostForm({ onClose, onSave }) {
             <input id="r-location" value={form.location} onChange={set('location')} placeholder="City, remote or hybrid" />
           </div>
           <div className="field">
-            <label htmlFor="r-deadline">Apply by</label>
-            <input id="r-deadline" type="date" value={form.deadline} onChange={set('deadline')} />
+            <label htmlFor="r-deadline">Application deadline</label>
+            <input id="r-deadline" type="date" min={todayISO()} value={form.deadline} onChange={set('deadline')} required />
+            <span className="hint">The post is removed after this date.</span>
           </div>
         </div>
         <div className="field">
@@ -84,7 +89,7 @@ function PostForm({ onClose, onSave }) {
 
 export default function Recruitment() {
   const { user } = useAuth()
-  const { items, add, remove } = useCollection(COLLECTIONS.opportunities)
+  const { items, add, remove } = useOpportunities()
   const [posting, setPosting] = useState(false)
   const [type, setType] = useState('All')
   const [query, setQuery] = useState('')
