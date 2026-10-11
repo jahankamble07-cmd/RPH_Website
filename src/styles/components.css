@@ -1,0 +1,442 @@
+/* Cube carousel */
+.cube {
+  position: relative;
+  margin: 40px 0 8px;
+  outline: none;
+}
+
+.cube__stage {
+  --face-w: min(600px, 64vw);
+  position: relative;
+  height: clamp(280px, 36vw, 440px);
+  perspective: 2200px;
+  perspective-origin: 50% 50%;
+  transform-style: preserve-3d;
+  touch-action: pan-y;
+  user-select: none;
+  cursor: grab;
+}
+
+.cube__stage:active {
+  cursor: grabbing;
+}
+
+.cube__face {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--face-w);
+  height: 100%;
+  margin-left: calc(var(--face-w) / -2);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--maroon-deep);
+  backface-visibility: hidden;
+  box-shadow: 0 24px 50px rgb(43 8 14 / 0.28);
+  transition:
+    transform 0.95s cubic-bezier(0.65, 0, 0.35, 1),
+    transform-origin 0.95s cubic-bezier(0.65, 0, 0.35, 1),
+    opacity 0.7s ease;
+}
+
+.cube__face::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgb(20 6 8 / 0.5);
+  transition: opacity 0.95s ease;
+  pointer-events: none;
+}
+
+.cube__face.is-active::after {
+  opacity: 0;
+}
+
+.cube__face:not(.is-active) {
+  cursor: pointer;
+}
+
+.cube__face img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  transform: scale(1.08);
+  transition: transform 4s ease-out;
+}
+
+.cube__face.is-active img {
+  transform: scale(1);
+}
+
+.cube__caption {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 56px 22px 20px;
+  background: linear-gradient(0deg, rgb(20 6 8 / 0.92), transparent);
+  color: var(--ivory);
+}
+
+.cube__caption h2 {
+  color: var(--ivory);
+}
+
+.cube__caption p {
+  font-size: var(--fs-small);
+  color: #eadbc8;
+}
+
+.cube__face.is-active .cube__caption > div {
+  animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+}
+
+.cube__dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 26px;
+}
+
+.cube__dots button {
+  position: relative;
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--line-strong);
+  overflow: hidden;
+  cursor: pointer;
+  transition: width 0.4s ease;
+}
+
+.cube__dots button[aria-current='true'] {
+  width: 44px;
+  background: rgb(107 21 35 / 0.25);
+}
+
+/* Progress fill shows time until the next slide */
+.cube__dots button span {
+  position: absolute;
+  inset: 0;
+  background: var(--maroon);
+  transform-origin: left;
+  animation: dot-fill var(--interval) linear forwards;
+}
+
+.cube__dots.is-paused button span {
+  animation-play-state: paused;
+}
+
+@keyframes dot-fill {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@media (max-width: 700px) {
+  .cube__stage {
+    --face-w: 76vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cube__dots button span {
+    animation: none;
+  }
+}
+
+/* Film-strip hero (Our Legacy, Innovation) */
+.film-hero {
+  position: relative;
+  min-height: clamp(460px, 78vh, 700px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--maroon-deep);
+}
+
+.film-hero__strip {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  width: max-content;
+  animation: film-slide 70s linear infinite;
+}
+
+.film-hero__strip img {
+  height: 100%;
+  width: 60vw;
+  min-width: 420px;
+  object-fit: cover;
+}
+
+@keyframes film-slide {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.film-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgb(43 8 14 / 0.92), rgb(43 8 14 / 0.6) 55%, rgb(43 8 14 / 0.3));
+}
+
+.film-hero__body {
+  position: relative;
+  z-index: 1;
+  color: var(--ivory);
+  padding-block: 56px 96px;
+}
+
+.film-hero h1 {
+  color: var(--ivory);
+  font-size: clamp(2.6rem, 7.5vw, 5.6rem);
+  line-height: 1.02;
+}
+
+.film-hero h1 em {
+  display: block;
+  color: var(--gold-light);
+}
+
+.film-hero__body > p {
+  max-width: 480px;
+  margin: 16px 0 24px;
+  color: #f1e3cf;
+}
+
+.film-hero__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-top: 40px;
+  font-size: var(--fs-small);
+}
+
+.film-hero__links a {
+  color: #e8d4be;
+  text-decoration: none;
+}
+
+.film-hero__links a:hover {
+  color: var(--gold-light);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .film-hero__strip {
+    animation: none;
+  }
+}
+
+.btn--gold {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--maroon-deep);
+}
+
+.btn--gold:hover {
+  background: var(--gold-light);
+  border-color: var(--gold-light);
+  color: var(--maroon-deep);
+}
+
+/* Portrait frame */
+.portrait {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(150deg, #c98a3a, #8a3d17 70%, #6b1523);
+}
+
+.portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.portrait__initials {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: rgb(255 250 241 / 0.92);
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.portrait::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, rgb(255 255 255 / 0.18), transparent 55%);
+  pointer-events: none;
+}
+
+/* Photo-left card (Warden, Hall President, Second Senate Member) */
+.feature-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(150px, 38%) 1fr;
+  gap: 22px;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.feature-card__photo {
+  border-radius: var(--radius-sm);
+  min-height: 220px;
+  aspect-ratio: 4 / 5;
+  height: 100%;
+}
+
+.feature-card__body {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 6px 6px 6px 0;
+}
+
+.feature-card__quote {
+  position: absolute;
+  top: -18px;
+  right: 0;
+  font-family: Georgia, serif;
+  font-size: 6rem;
+  line-height: 1;
+  color: var(--band);
+  pointer-events: none;
+}
+
+.feature-card__body h3 {
+  position: relative;
+  padding-right: 48px;
+}
+
+.feature-card__rule {
+  width: 44px;
+  height: 2px;
+  background: var(--maroon);
+  margin-top: 10px;
+}
+
+.feature-card__name {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.feature-card:hover .portrait img {
+  transform: scale(1.04);
+}
+
+@media (max-width: 560px) {
+  .feature-card {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-card__photo {
+    aspect-ratio: 4 / 3;
+    min-height: 0;
+  }
+}
+
+/* Photo-on-top card (Notable Alumni, council members) */
+.portrait-card {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding: 10px 10px 22px;
+  text-align: center;
+}
+
+.portrait-card__photo {
+  aspect-ratio: 1;
+  border-radius: var(--radius-sm);
+}
+
+.portrait-card__body {
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: 3px;
+  padding: 14px 8px 6px;
+}
+
+.portrait-card__lead {
+  font-weight: 600;
+  font-size: var(--fs-small);
+}
+
+.portrait-card__rule {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  width: 54px;
+  height: 2px;
+  background: var(--maroon);
+  transform: translateX(-50%);
+  transition: width 0.35s ease;
+}
+
+.portrait-card:hover .portrait-card__rule {
+  width: 90px;
+}
+
+.portrait-card:hover .portrait img {
+  transform: scale(1.05);
+}
+
+/* Horizontal rail with snap scrolling */
+.rail {
+  position: relative;
+}
+
+.rail__track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: var(--rail-col, max(210px, calc((100% - 4 * 18px) / 5)));
+  gap: 18px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 6px 2px 18px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+.rail__track > * {
+  scroll-snap-align: start;
+}
+
+.rail__btn {
+  position: absolute;
+  top: 40%;
+  z-index: 2;
+  transform: translateY(-50%);
+  box-shadow: var(--shadow);
+}
+
+.rail__btn--prev {
+  left: -14px;
+}
+
+.rail__btn--next {
+  right: -14px;
+}
+
+@media (max-width: 700px) {
+  .rail__btn {
+    display: none;
+  }
+}
