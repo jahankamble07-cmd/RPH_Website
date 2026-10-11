@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # R.P. Hall of Residence website
 
 Website for Rajendra Prasad Hall of Residence, IIT Kharagpur. Built with React 19, Vite and React Router.
@@ -65,3 +66,6 @@ shows a "No access" page to logged-in users without permission.
 Authors, licences and source links are in `public/images/credits.json`. Only `rp-hall.jpg`
 shows R.P. Hall; replace the rest with the hall's own photos. The logo in
 `src/components/Logo.jsx` is traced from the PDF and should be replaced with the official vector.
+=======
+# RPH_Website
+>>>>>>> 3fefee6e4a94ede223c81a06074b8cf8cceff328
