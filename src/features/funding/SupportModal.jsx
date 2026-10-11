@@ -38,6 +38,7 @@ export default function SupportModal({ type = 'funding', project, onClose }) {
     const record = add({
       ...form,
       amount: isFunding ? amount : null,
+      status: 'sent',
       typeLabel: WAYS_TO_CONTRIBUTE.find((w) => w.id === form.type)?.title,
       name: user.name,
       email: user.email,
@@ -57,7 +58,7 @@ export default function SupportModal({ type = 'funding', project, onClose }) {
                 ? `Your pledge of ${formatINR(saved.amount)} to ${saved.project} is recorded.`
                 : 'Your offer is recorded.'}
             </p>
-            <p className="small muted">The warden can see it under Funding Requests and will contact you at {saved.contact}.</p>
+            <p className="small muted">You can follow it under Your Funding Status. The warden will contact you at {saved.contact}.</p>
             <div className="form-actions">
               <button type="button" className="btn" onClick={onClose}>Done</button>
             </div>

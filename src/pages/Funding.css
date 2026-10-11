@@ -191,3 +191,74 @@
     height: 72px;
   }
 }
+
+.status-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 14px;
+  margin: 0 0 18px;
+}
+
+.status-cards dt {
+  font-size: var(--fs-small);
+  color: var(--muted);
+}
+
+.status-cards dd {
+  margin: 4px 0 0;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--maroon);
+}
+
+.status-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.status-list li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+}
+
+.status-list li > div {
+  display: grid;
+}
+
+.status-empty {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+}
+
+.support-status {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  background: var(--band);
+  color: var(--ink-soft);
+}
+
+.support-status--sent {
+  background: rgb(184 137 43 / 0.15);
+  color: #8a6416;
+}
+
+.support-status--contacted {
+  background: rgb(107 21 35 / 0.1);
+  color: var(--maroon);
+}
+
+.support-status--received {
+  background: rgb(63 122 58 / 0.14);
+  color: var(--status-done);
+}

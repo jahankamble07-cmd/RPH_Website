@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import PageHero from '../components/PageHero'
 import Pills from '../components/Pills'
-import { WAYS_TO_CONTRIBUTE } from '../data/funding'
+import { SUPPORT_STATUS, WAYS_TO_CONTRIBUTE } from '../data/funding'
 import { formatDate, formatINR } from '../lib/format'
 import { COLLECTIONS, useCollection } from '../lib/store'
 import './FundingRequests.css'
@@ -9,7 +9,7 @@ import './FundingRequests.css'
 const FILTERS = [{ id: 'all', label: 'All' }, ...WAYS_TO_CONTRIBUTE.map((w) => ({ id: w.id, label: w.title }))]
 
 export default function FundingRequests() {
-  const { items } = useCollection(COLLECTIONS.support)
+  const { items, update } = useCollection(COLLECTIONS.support)
   const [type, setType] = useState('all')
 
   const shown = items.filter((s) => type === 'all' || s.type === type)
@@ -41,6 +41,7 @@ export default function FundingRequests() {
                     <th className="num">Amount</th>
                     <th>Contact</th>
                     <th>Note</th>
+                    <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -53,6 +54,16 @@ export default function FundingRequests() {
                       <td className="num">{s.amount ? formatINR(s.amount) : ''}</td>
                       <td>{s.contact}</td>
                       <td>{s.message}</td>
+                      <td>
+                        <select
+                          className="input fr-status"
+                          aria-label={`Status for ${s.name}`}
+                          value={s.status ?? 'sent'}
+                          onChange={(e) => update(s.id, { status: e.target.value })}
+                        >
+                          {Object.entries(SUPPORT_STATUS).map(([id, label]) => <option key={id} value={id}>{label}</option>)}
+                        </select>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

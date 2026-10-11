@@ -41,3 +41,11 @@ export const WAYS_TO_CONTRIBUTE = [
 
 // TODO(Q6): previously supported projects and their outcomes.
 export const PAST_SUPPORTED = []
+
+// Progress of an alumni pledge or offer, updated from Funding Requests.
+export const SUPPORT_STATUS = {
+  sent: 'Request sent',
+  contacted: 'In discussion',
+  received: 'Received',
+  closed: 'Closed',
+}

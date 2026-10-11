@@ -4,8 +4,9 @@ import Icon from '../components/Icon'
 import Modal from '../components/Modal'
 import PageHero from '../components/PageHero'
 import Pending from '../components/Pending'
+import Reveal from '../components/Reveal'
 import SampleTag from '../components/SampleTag'
-import { FUNDING_FIELDS, FUNDING_NEEDS, INITIATIVES, PAST_SUPPORTED, WAYS_TO_CONTRIBUTE } from '../data/funding'
+import { FUNDING_FIELDS, FUNDING_NEEDS, INITIATIVES, PAST_SUPPORTED, SUPPORT_STATUS, WAYS_TO_CONTRIBUTE } from '../data/funding'
 import { img } from '../data/images'
 import SupportModal from '../features/funding/SupportModal'
 import { formatDate, formatINR } from '../lib/format'
@@ -70,6 +71,52 @@ function Leaderboard({ pledges }) {
   )
 }
 
+function MyStatus({ mine, onDonate }) {
+  const statusOf = (s) => s.status ?? 'sent'
+  const pledged = mine.filter((s) => s.amount).reduce((sum, s) => sum + s.amount, 0)
+  const received = mine.filter((s) => s.amount && statusOf(s) === 'received').reduce((sum, s) => sum + s.amount, 0)
+  const offers = mine.filter((s) => !s.amount).length
+
+  return (
+    <section className="section section--ivory my-status">
+      <div className="container">
+        <Reveal className="section-head">
+          <div>
+            <h2>Your Funding Status</h2>
+            <p>Donation requests and offers you have sent, and where each one stands.</p>
+          </div>
+        </Reveal>
+        <dl className="status-cards">
+          <Reveal className="card card-body" delay={0}><dt>Total pledged</dt><dd>{formatINR(pledged)}</dd></Reveal>
+          <Reveal className="card card-body" delay={90}><dt>Received by the hall</dt><dd>{formatINR(received)}</dd></Reveal>
+          <Reveal className="card card-body" delay={180}><dt>Requests sent</dt><dd>{mine.length}</dd></Reveal>
+          <Reveal className="card card-body" delay={270}><dt>Non-monetary offers</dt><dd>{offers}</dd></Reveal>
+        </dl>
+        {mine.length ? (
+          <ul className="status-list">
+            {mine.map((s) => (
+              <li key={s.id} className="card">
+                <div>
+                  <strong>{s.amount ? formatINR(s.amount) : s.typeLabel}</strong>
+                  <span className="muted small">{s.project}, sent {formatDate(s.createdAt)}</span>
+                </div>
+                <span className={`support-status support-status--${statusOf(s)}`}>{SUPPORT_STATUS[statusOf(s)]}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="empty status-empty">
+            <p>You have not sent a donation request yet.</p>
+            <button type="button" className="btn btn--donate btn--small" onClick={onDonate}>
+              <Icon name="heart" size={14} /> Donate
+            </button>
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}
+
 export default function Funding() {
   const { user } = useAuth()
   const { items: support } = useCollection(COLLECTIONS.support)
@@ -86,6 +133,8 @@ export default function Funding() {
           <Icon name="heart" size={16} /> Donate
         </button>
       </PageHero>
+
+      <MyStatus mine={mine} onDonate={() => donate()} />
 
       <section className="section">
         <div className="container">
@@ -150,21 +199,6 @@ export default function Funding() {
           </div>
           <aside className="stack funding-aside">
             <Leaderboard pledges={support} />
-            <div className="card card-body">
-              <h3>Your pledges and offers</h3>
-              {mine.length ? (
-                <ul className="mine">
-                  {mine.map((s) => (
-                    <li key={s.id}>
-                      <span>{s.amount ? formatINR(s.amount) : s.typeLabel}</span>
-                      <span className="muted small">{s.project}, {formatDate(s.createdAt)}</span>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="muted small">Nothing recorded yet.</p>
-              )}
-            </div>
           </aside>
         </div>
       </section>
