@@ -129,6 +129,24 @@ How content was handled:
 - Headless Chrome walkthrough of all four accounts: correct landing page and navbar each time; every role page opened by direct URL with each other role shows "No access"; logged-out visitors are sent to login with a return link. Complaint filed as student appears for hall council and warden; project posted by student shows on Innovation; alumni pledge and mentorship offer show on warden's Funding Requests and the leaderboard; alumni job post shows on Innovation for logged-out visitors. Wrong password shows an error.
 - No horizontal overflow at 375px or 320px on any page; desktop at 1366px.
 
+## Round 2 (requested in chat, 11 Oct 2026)
+
+R2-1. [x] Fill left and right margins on desktop: container widened from 1180px to 1840px, gutter scales with the screen. `src/styles/tokens.css`
+R2-2. [x] Hall council can file complaints, post projects on Innovation, and see Funding Requests (same page as the warden). Permissions map only. `src/auth/roles.js`
+R2-3. [x] Home redesigned after the supplied mockup: photo-left cards for the Warden and Hall President messages, photo-on-top Notable Alumni cards in an auto-advancing rail, medal icons instead of photos. `src/pages/Home.jsx`, `src/pages/Home.css`, `src/components/ProfileFeature.jsx`, `src/components/PortraitCard.jsx`, `src/components/Portrait.jsx`, `src/components/Rail.jsx`
+R2-4. [x] Our Legacy, GC Achievements & Winning History: replaced the zig-zag with the scroll-drawn line from the supplied Responsibility.jsx (alternating cards, glowing line drawn through corner markers as you scroll, cards appear as the line reaches them). Gold on maroon instead of red on black, no emoji bursts. `src/features/legacy/GcTimeline.jsx`, `src/pages/Legacy.css`
+R2-5. [x] Name blocks use the mockup styles: Hall President and Second Senate Member use the Warden-style card, all general secretaries and alumni use the Notable Alumni card. `src/pages/HallCouncil.jsx`, `src/features/AlumniCard.jsx`
+R2-6. [x] "Moments that made us" and the Gallery albums: auto-advance every 4 seconds, no arrow buttons, cube-style 3D fold between cards (from the supplied screenshot). Swipe, horizontal trackpad scroll, arrow keys and dots also move it; pauses on hover or focus; dot shows time to next slide. `src/components/CubeCarousel.jsx`, `src/styles/components.css`
+R2-7. [x] Milestones block removed from Our Legacy. `src/pages/Legacy.jsx`, `src/data/legacy.js`
+R2-8. [~] Alumni Achievements: 12 profile slots (four per era) in a full-width auto-scrolling rail with era filter and count. Still the PDF placeholder template until real profiles arrive (Q5). `src/pages/Legacy.jsx`, `src/data/alumni.js`
+R2-9. [x] Gallery Recent Highlights: full-width mosaic with large tiles, captions, zoom on hover and the lightbox. `src/pages/gallery/GalleryLanding.jsx`, `src/styles/gallery.css`, `src/data/gallery.js`
+R2-10. [x] Innovation: same moving film-strip hero as Our Legacy and the same height; highlighted "Post your project" strip above "What are RPians building?" (log-in prompt for visitors, opportunity prompt for alumni). `src/pages/innovation/Innovation.jsx`, `src/components/FilmHero.jsx`
+R2-11. [x] New Complaint: roll number field (format checked, e.g. 22CS10001); every field is required. Roll number shown on the complaints dashboard. `src/pages/NewComplaint.jsx`, `src/pages/Complaints.jsx`
+R2-12. [x] Motion across the site: page fade on route change, scroll reveals, staggered hero text, slow zoom on hero photos, hover lift on cards. All of it is switched off under the system "reduce motion" setting. `src/styles/motion.css`, `src/components/Reveal.jsx`, `src/components/Layout.jsx`
+R2-13. [x] Login: full-height split layout with the hall photo, logo and motto; footer now sits below the fold; icon fields, show/hide password, error shake. `src/pages/Login.jsx`, `src/pages/Login.css`, `src/styles/layout.css`
+
+Verification: build and lint clean; all four roles re-walked (hall council files a complaint, posts a project, opens Funding Requests, is still blocked from Funding; warden cannot file complaints; alumni cannot open Funding Requests); roll number rejects "abc" and missing fields; no horizontal overflow at 320px, 375px, 1366px and 1920px.
+
 ## Open questions
 
 Q1. Reference-screenshot copy. Current choice: headings and taglines used as shown; data treated as samples.
@@ -148,7 +166,7 @@ Q14. Complaint categories: Mess, Maintenance, Electrical, Plumbing, Internet, Cl
 Q15. Phone numbers with wrong length: Rishabh Setia "750367974", Malyank Verma "8278102", Jayesh Mahajan "91309228".
 Q16. Council departments and photos; past councils; is "Current Council" 2026–27 given the separate "2025–26" pill?
 Q17. Navbar order: section 1 order used.
-Q18. Should hall_council accounts also file complaints and see the student Notice Board? Currently no.
+Q18. Should hall_council accounts see the student Notice Board and events? Currently no. (Filing complaints is now allowed, see R2-2.)
 Q19. Social media URLs.
 
 ## Skipped or deferred
