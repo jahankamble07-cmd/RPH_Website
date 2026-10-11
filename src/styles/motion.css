@@ -38,7 +38,7 @@
 
 /* Hero text entrance, staggered by --i */
 .rise {
-  animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) backwards;
   animation-delay: calc(var(--i, 0) * 110ms + 120ms);
 }
 

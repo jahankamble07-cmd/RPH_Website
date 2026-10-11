@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import Icon from './Icon'
 
 export default function Modal({ onClose, label, narrow = false, children }) {
@@ -16,7 +17,7 @@ export default function Modal({ onClose, label, narrow = false, children }) {
     }
   }, [onClose])
 
-  return (
+  return createPortal(
     <div className="modal" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
       <div
         ref={cardRef}
@@ -31,6 +32,7 @@ export default function Modal({ onClose, label, narrow = false, children }) {
         </button>
         {children}
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }

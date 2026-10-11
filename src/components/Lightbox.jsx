@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import Icon from './Icon'
 
 export default function Lightbox({ photos, index, title, onClose, onIndex }) {
@@ -27,7 +28,7 @@ export default function Lightbox({ photos, index, title, onClose, onIndex }) {
 
   const photo = photos[index]
 
-  return (
+  return createPortal(
     <div className="lightbox" role="dialog" aria-modal="true" aria-label={title}>
       <div className="lightbox__bar">
         <div>
@@ -44,7 +45,7 @@ export default function Lightbox({ photos, index, title, onClose, onIndex }) {
             <Icon name="left" size={24} />
           </button>
         )}
-        <img src={photo.src} alt={photo.alt} />
+        <img key={index} className="lightbox__img" src={photo.src} alt={photo.alt} />
         {count > 1 && (
           <button type="button" className="lightbox__btn lightbox__next" onClick={() => go(1)} aria-label="Next photo">
             <Icon name="right" size={24} />
@@ -64,6 +65,7 @@ export default function Lightbox({ photos, index, title, onClose, onIndex }) {
           </button>
         ))}
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }

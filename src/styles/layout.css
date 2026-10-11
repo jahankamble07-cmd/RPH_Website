@@ -332,7 +332,7 @@ main {
 
 /* Route change: content fades up into place */
 .page {
-  animation: page-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: page-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
 
 @keyframes page-in {
