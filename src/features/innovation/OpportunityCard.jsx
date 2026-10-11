@@ -5,6 +5,11 @@ export default function OpportunityCard({ o, onRemove }) {
   const href = applyHref(o.apply)
   return (
     <article className="opp card lift">
+      {o.deadline && (
+        <p className="opp__deadline">
+          <Icon name="calendar" size={14} /> Apply by {formatDate(`${o.deadline}T00:00`)}
+        </p>
+      )}
       <div className="opp__head">
         <span className="opp__logo" aria-hidden="true">{o.company.slice(0, 1).toUpperCase()}</span>
         <div>
@@ -15,7 +20,6 @@ export default function OpportunityCard({ o, onRemove }) {
       <ul className="opp__meta">
         {o.location && <li><Icon name="pin" size={14} /> {o.location}</li>}
         <li><Icon name="briefcase" size={14} /> {o.type}</li>
-        {o.deadline && <li><Icon name="calendar" size={14} /> Apply by {formatDate(o.deadline)}</li>}
       </ul>
       {o.skills?.length > 0 && (
         <div className="chips">{o.skills.map((s) => <span key={s} className="chip">{s}</span>)}</div>

@@ -18,6 +18,7 @@ import {
 } from '../../data/innovation'
 import OngoingProjectModal from '../../features/innovation/OngoingProjectModal'
 import OpportunityCard from '../../features/innovation/OpportunityCard'
+import { useOpportunities } from '../../features/innovation/useOpportunities'
 import { COLLECTIONS, useCollection } from '../../lib/store'
 import './Innovation.css'
 
@@ -52,7 +53,7 @@ function PostStrip({ user }) {
       text = 'Openings you post appear under Explore Opportunities on this page.'
     } else if (!user) {
       text = 'Log in with your hall account to post a project.'
-      action = <Link to="/login?next=/innovation/post" className="btn btn--donate">Log in to post <Icon name="arrow" size={14} /></Link>
+      action = <Link to="/login" className="btn btn--donate">Log in to post <Icon name="arrow" size={14} /></Link>
     } else {
       return null
     }
@@ -76,13 +77,15 @@ function SubmitButton({ user }) {
   if (PROJECT_SUBMISSION_FORM_URL) {
     return <a href={PROJECT_SUBMISSION_FORM_URL} target="_blank" rel="noreferrer" className="btn btn--light">Submit Your Project <Icon name="external" size={14} /></a>
   }
-  return <Link to="/login?next=/innovation/post" className="btn btn--light">Log in to submit <Icon name="arrow" size={14} /></Link>
+  return <Link to="/login" className="btn btn--light">Log in to submit <Icon name="arrow" size={14} /></Link>
 }
 
 export default function Innovation() {
   const { user } = useAuth()
   const { items: posted } = useCollection(COLLECTIONS.projects)
-  const { items: opportunities } = useCollection(COLLECTIONS.opportunities)
+  const { items: opportunities } = useOpportunities()
+  const showOpportunities = can(user, 'opportunities.view')
+  const showSubmit = !user || can(user, 'innovation.postProject')
   const [area, setArea] = useState('all')
   const [openProject, setOpenProject] = useState(null)
   const [type, setType] = useState('All')
@@ -118,7 +121,7 @@ export default function Innovation() {
           <a href="#building">What RPians are building</a>
           <a href="#featured">Featured Projects</a>
           <a href="#contribute">Contribute to Projects</a>
-          <a href="#opportunities">Opportunities</a>
+          {showOpportunities && <a href="#opportunities">Opportunities</a>}
         </nav>
       </FilmHero>
 
@@ -158,7 +161,7 @@ export default function Innovation() {
       </section>
 
       <section className="section section--band" id="featured">
-        <div className="container">
+        <div className="container featured-wrap">
           <div className="section-head">
             <h2>Featured Projects</h2>
             <Pills
@@ -234,45 +237,49 @@ export default function Innovation() {
         </div>
       </section>
 
-      <section className="section section--ivory" id="opportunities">
-        <div className="container">
-          <div className="section-head">
-            <div>
-              <h2>Explore Opportunities</h2>
-              <p>Internships, full-time roles and other openings shared by RP alumni.</p>
+      {showOpportunities && (
+        <section className="section section--ivory" id="opportunities">
+          <div className="container">
+            <div className="section-head">
+              <div>
+                <h2>Explore Opportunities</h2>
+                <p>Internships, full-time roles and other openings shared by RP alumni.</p>
+              </div>
             </div>
-          </div>
-          <div className="opp-filters">
-            <label className="search">
-              <Icon name="search" size={16} />
-              <span className="visually-hidden">Search opportunities</span>
-              <input className="input" type="search" placeholder="Search roles, skills, companies" value={query} onChange={(e) => setQuery(e.target.value)} />
-            </label>
-            <Pills options={['All', ...OPPORTUNITY_TYPES]} value={type} onChange={setType} label="Opportunity type" />
-          </div>
-          {filteredOpps.length ? (
-            <div className="grid grid--2">
-              {filteredOpps.map((o) => <OpportunityCard key={o.id} o={o} />)}
+            <div className="opp-filters">
+              <label className="search">
+                <Icon name="search" size={16} />
+                <span className="visually-hidden">Search opportunities</span>
+                <input className="input" type="search" placeholder="Search roles, skills, companies" value={query} onChange={(e) => setQuery(e.target.value)} />
+              </label>
+              <Pills options={['All', ...OPPORTUNITY_TYPES]} value={type} onChange={setType} label="Opportunity type" />
             </div>
-          ) : (
-            <p className="empty">
-              {opportunities.length ? 'No openings match your search.' : 'No openings posted yet. Alumni can post them from the Recruitment page.'}
-            </p>
-          )}
-        </div>
-      </section>
+            {filteredOpps.length ? (
+              <div className="grid grid--2">
+                {filteredOpps.map((o) => <OpportunityCard key={o.id} o={o} />)}
+              </div>
+            ) : (
+              <p className="empty">
+                {opportunities.length ? 'No openings match your search.' : 'No openings posted yet. Alumni can post them from the Recruitment page.'}
+              </p>
+            )}
+          </div>
+        </section>
+      )}
 
-      <section className="section">
-        <div className="container">
-          <Reveal className="cta" variant="zoom">
-            <div>
-              <h2>Have something worth building?</h2>
-              <p>Add your project to find collaborators.</p>
-            </div>
-            <SubmitButton user={user} />
-          </Reveal>
-        </div>
-      </section>
+      {showSubmit && (
+        <section className="section">
+          <div className="container">
+            <Reveal className="cta" variant="zoom">
+              <div>
+                <h2>Have something worth building?</h2>
+                <p>Add your project to find collaborators.</p>
+              </div>
+              <SubmitButton user={user} />
+            </Reveal>
+          </div>
+        </section>
+      )}
 
       {openProject && <OngoingProjectModal project={openProject} onClose={() => setOpenProject(null)} />}
     </>
