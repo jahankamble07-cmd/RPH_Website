@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom'
 import { can } from '../auth/roles'
 import { useAuth } from '../auth/useAuth'
-import Avatar from '../components/Avatar'
 import Icon from '../components/Icon'
 import Pending from '../components/Pending'
+import PortraitCard from '../components/PortraitCard'
+import ProfileFeature from '../components/ProfileFeature'
+import Rail from '../components/Rail'
+import Reveal from '../components/Reveal'
 import { ALUMNI } from '../data/alumni'
 import { HALL_STATS, MEDAL_TALLY, REFLECTIONS } from '../data/home'
 import { img } from '../data/images'
@@ -18,6 +21,21 @@ const MEDALS = [
   ['bronze', 'Bronze'],
 ]
 
+function SectionHead({ icon, title, text, action }) {
+  return (
+    <Reveal className="section-head">
+      <div className="head-with-icon">
+        <Icon name={icon} size={28} />
+        <div>
+          <h2>{title}</h2>
+          <p>{text}</p>
+        </div>
+      </div>
+      {action}
+    </Reveal>
+  )
+}
+
 export default function Home() {
   const { user } = useAuth()
   const showNotices = can(user, 'notices.view')
@@ -26,23 +44,23 @@ export default function Home() {
   return (
     <>
       <section className="home-hero">
-        <img src={img('rp-hall')} alt="R.P. Hall of Residence building" className="home-hero__img" />
+        <img src={img('rp-hall')} alt="R.P. Hall of Residence building" className="home-hero__img kenburns" />
         <div className="container home-hero__body">
-          <p className="home-hero__name">{SITE.fullName}</p>
-          <h1>{SITE.motto}</h1>
-          <p className="home-hero__hindi hindi">({SITE.mottoHindi})</p>
-          <p className="home-hero__text">
+          <p className="home-hero__name rise" style={{ '--i': 0 }}>{SITE.fullName}</p>
+          <h1 className="rise" style={{ '--i': 1 }}>{SITE.motto}</h1>
+          <p className="home-hero__hindi hindi rise" style={{ '--i': 2 }}>({SITE.mottoHindi})</p>
+          <p className="home-hero__text rise" style={{ '--i': 3 }}>
             More than just a hostel, R.P. is a community that nurtures ideas, builds character and shapes
             leaders for a better tomorrow.
           </p>
-          <Link to="/our-legacy" className="btn btn--outline-light">
+          <Link to="/our-legacy" className="btn btn--outline-light rise" style={{ '--i': 4 }}>
             Explore Our Hall <Icon name="arrow" size={16} />
           </Link>
         </div>
       </section>
 
       <div className="container">
-        <dl className="stats card">
+        <Reveal as="dl" className="stats card" variant="zoom">
           {HALL_STATS.map((s) => (
             <div key={s.label} className="stats__item">
               <Icon name={s.icon} size={26} />
@@ -50,12 +68,12 @@ export default function Home() {
               <dt>{s.label}</dt>
             </div>
           ))}
-        </dl>
+        </Reveal>
       </div>
 
       <section className="section">
         <div className="container">
-          <div className="medals">
+          <Reveal className="medals">
             <div className="medals__head">
               <div className="head-with-icon">
                 <Icon name="trophy" size={30} />
@@ -69,57 +87,53 @@ export default function Home() {
               </Link>
             </div>
             <div className="medals__grid">
-              {MEDAL_TALLY.map((m) => (
-                <div key={m.event} className="medal-card">
-                  <img src={img(m.image)} alt="" className="medal-card__img" />
-                  <h3>{m.event}</h3>
-                  <ul className="medal-card__counts">
-                    {MEDALS.map(([key, label]) => (
-                      <li key={key}>
-                        <span className={`medal medal--${key}`} aria-hidden="true" />
-                        <strong>{m[key]}</strong>
-                        <span className="visually-hidden">{label}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              {MEDAL_TALLY.map((m, i) => (
+                <Reveal key={m.event} delay={i * 120}>
+                  <div className="medal-card lift">
+                    <span className="medal-card__icon"><Icon name={m.icon} size={34} /></span>
+                    <h3>{m.event}</h3>
+                    <ul className="medal-card__counts">
+                      {MEDALS.map(([key, label]) => (
+                        <li key={key}>
+                          <span className={`medal medal--${key}`} aria-hidden="true" />
+                          <strong>{m[key]}</strong>
+                          <span className="visually-hidden">{label}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </Reveal>
               ))}
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {(showNotices || showEvents) && (
         <section className="section section--ivory">
-          <div className="container home-board">
+          <Reveal className="container home-board">
             {showNotices && <NoticeBoard />}
             {showEvents && <EventsCalendar />}
-          </div>
+          </Reveal>
         </section>
       )}
 
       <section className="section">
         <div className="container">
-          <div className="section-head">
-            <div className="head-with-icon">
-              <Icon name="users" size={28} />
-              <div>
-                <h2>Reflections from the Fraternity</h2>
-                <p>Thoughts, guidance and experiences from our community.</p>
-              </div>
-            </div>
-          </div>
-          <div className="grid grid--2">
-            {REFLECTIONS.map((r) => (
-              <article key={r.heading} className="reflection card">
-                <Avatar name={r.name} size={96} />
-                <div className="reflection__body">
-                  <h3>{r.heading}</h3>
+          <SectionHead icon="users" title="Reflections from the Fraternity" text="Thoughts, guidance and experiences from our community." />
+          <div className="reflections">
+            {REFLECTIONS.map((r, i) => (
+              <Reveal key={r.heading} variant={i ? 'right' : 'left'}>
+                <ProfileFeature
+                  quote
+                  name={r.name}
+                  heading={r.heading}
+                  title={r.name ?? 'Name to be added'}
+                  footer={<p className="muted small">{r.role}</p>}
+                >
                   {r.message ? <p>{r.message}</p> : <Pending>Message to be added.</Pending>}
-                  <p className="reflection__name">{r.name ?? 'Name to be added'}</p>
-                  <p className="muted small">{r.role}</p>
-                </div>
-              </article>
+                </ProfileFeature>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -127,30 +141,23 @@ export default function Home() {
 
       <section className="section section--band">
         <div className="container">
-          <div className="section-head">
-            <div className="head-with-icon">
-              <Icon name="cap" size={28} />
-              <div>
-                <h2>Notable Alumni</h2>
-                <p>R.Pians making an impact across the world.</p>
-              </div>
-            </div>
-            <Link to="/our-legacy#alumni" className="btn btn--outline btn--small">
-              View More Alumni <Icon name="arrow" size={14} />
-            </Link>
-          </div>
-          <div className="grid grid--3">
-            {ALUMNI.map((a, i) => (
-              <article key={i} className="alum-mini card">
-                <Avatar name={a.name} size={64} />
-                <div>
-                  <h3>{a.name}</h3>
-                  <p className="small">{a.position}</p>
-                  <p className="muted small">{a.organization}</p>
-                </div>
-              </article>
-            ))}
-          </div>
+          <SectionHead
+            icon="cap"
+            title="Notable Alumni"
+            text="R.Pians making an impact across the world."
+            action={
+              <Link to="/our-legacy#alumni" className="btn btn--outline btn--small">
+                View More Alumni <Icon name="arrow" size={14} />
+              </Link>
+            }
+          />
+          <Reveal>
+            <Rail label="Notable alumni" auto={3500}>
+              {ALUMNI.map((a, i) => (
+                <PortraitCard key={i} name={a.name} photo={a.photo} lines={[a.position, a.organization]} />
+              ))}
+            </Rail>
+          </Reveal>
         </div>
       </section>
     </>

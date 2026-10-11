@@ -8,9 +8,9 @@ export const HALL_STATS = [
 ]
 
 export const MEDAL_TALLY = [
-  { event: 'Illumination', image: 'illu-3', gold: 12, silver: 9, bronze: 8 },
-  { event: 'Rangoli', image: 'rangoli-3', gold: 10, silver: 7, bronze: 6 },
-  { event: 'General Championship', image: 'football', gold: 8, silver: 11, bronze: 9 },
+  { event: 'Illumination', icon: 'diya', gold: 12, silver: 9, bronze: 8 },
+  { event: 'Rangoli', icon: 'flower', gold: 10, silver: 7, bronze: 6 },
+  { event: 'General Championship', icon: 'trophy', gold: 8, silver: 11, bronze: 9 },
 ]
 
 export const NOTICE_CATEGORIES = ['All', 'General', 'Events', 'Academics', 'Mess', 'Maintenance']
