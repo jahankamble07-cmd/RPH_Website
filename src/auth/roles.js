@@ -23,6 +23,7 @@ export const PERMISSIONS = {
   'complaints.review': [HALL_COUNCIL, WARDEN],
   'innovation.postProject': [STUDENT, HALL_COUNCIL],
   'innovation.postOpportunity': [ALUMNI],
+  'opportunities.view': [STUDENT, ALUMNI, HALL_COUNCIL, WARDEN],
   'funding.view': [ALUMNI],
   'funding.donate': [ALUMNI],
   'recruitment.manage': [ALUMNI],
@@ -41,16 +42,17 @@ export const NAV_ITEMS = [
   { to: '/our-legacy', label: 'Our Legacy' },
   { to: '/gallery', label: 'Gallery' },
   { to: '/innovation', label: 'Innovation' },
-  { to: '/complaints/new', label: 'New Complaint', permission: 'complaints.create' },
+  // Reviewers file complaints from a toggle on the Complaints page instead.
+  { to: '/complaints/new', label: 'New Complaint', permission: 'complaints.create', hideWith: 'complaints.review' },
   { to: '/complaints', label: 'Complaints', permission: 'complaints.review' },
   { to: '/funding', label: 'Funding', permission: 'funding.view' },
   { to: '/recruitment', label: 'Recruitment', permission: 'recruitment.manage' },
   { to: '/funding-requests', label: 'Funding Requests', permission: 'fundingRequests.view' },
 ]
 
-export const LANDING = {
-  [STUDENT]: '/',
-  [ALUMNI]: '/funding',
-  [HALL_COUNCIL]: '/complaints',
-  [WARDEN]: '/complaints',
+export function navItemsFor(user) {
+  return NAV_ITEMS.filter((item) => can(user, item.permission) && !(item.hideWith && can(user, item.hideWith)))
 }
+
+// Every role lands on Home after logging in.
+export const LANDING_PATH = '/'

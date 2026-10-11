@@ -1,8 +1,11 @@
 import { useMemo, useState } from 'react'
+import { can } from '../auth/roles'
+import { useAuth } from '../auth/useAuth'
 import PageHero from '../components/PageHero'
 import Pills from '../components/Pills'
 import { COMPLAINT_CATEGORIES, COMPLAINT_STATUS } from '../data/complaints'
 import { formatDate } from '../lib/format'
+import ComplaintForm from '../features/complaints/ComplaintForm'
 import { COLLECTIONS, useCollection } from '../lib/store'
 import './Complaints.css'
 
@@ -36,7 +39,15 @@ function CategoryChart({ counts, onPick, selected }) {
   )
 }
 
+const MODES = [
+  { id: 'review', label: 'All complaints' },
+  { id: 'file', label: 'File a complaint' },
+]
+
 export default function Complaints() {
+  const { user } = useAuth()
+  const canFile = can(user, 'complaints.create')
+  const [mode, setMode] = useState('review')
   const { items, update } = useCollection(COLLECTIONS.complaints)
   const [view, setView] = useState('active')
   const [category, setCategory] = useState('All')
@@ -58,46 +69,62 @@ export default function Complaints() {
 
   return (
     <>
-      <PageHero title="Complaints" text="Complaints registered by residents, by category and status." />
-      <section className="section">
-        <div className="container complaints-grid">
-          <aside className="card card-body">
-            <h2 className="complaint-side-title">Active by category</h2>
-            <p className="muted small">{active.length} active of {items.length} total</p>
-            <CategoryChart counts={counts} selected={category} onPick={(c) => setCategory(category === c ? 'All' : c)} />
-          </aside>
-
-          <div className="stack">
-            <Pills options={VIEWS} value={view} onChange={setView} label="Status" />
-            <Pills options={['All', ...COMPLAINT_CATEGORIES]} value={category} onChange={setCategory} label="Category" />
-            {shown.length ? (
-              <ul className="complaint-list">
-                {shown.map((c) => (
-                  <li key={c.id} className="card card-body">
-                    <div className="complaint-list__top">
-                      <span className="chip">{c.category}</span>
-                      <span className={`status status--${c.status}`}>{COMPLAINT_STATUS[c.status]}</span>
-                    </div>
-                    <h4>{c.title}</h4>
-                    <p className="small">{c.description}</p>
-                    <p className="muted small">
-                      {c.authorName}{c.rollNo && ` (${c.rollNo})`}{c.room && `, room ${c.room}`}, {formatDate(c.createdAt)}
-                    </p>
-                    <label className="complaint-list__status">
-                      <span className="small">Status</span>
-                      <select className="input" value={c.status} onChange={(e) => update(c.id, { status: e.target.value })}>
-                        {Object.entries(COMPLAINT_STATUS).map(([id, label]) => <option key={id} value={id}>{label}</option>)}
-                      </select>
-                    </label>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="empty">No complaints match these filters.</p>
-            )}
+      <PageHero title="Complaints" text="Complaints registered by residents, by category and status.">
+        {canFile && (
+          <div className="mode-toggle" role="tablist" aria-label="Complaints view">
+            {MODES.map((m) => (
+              <button key={m.id} type="button" role="tab" aria-selected={mode === m.id} onClick={() => setMode(m.id)}>
+                {m.label}
+              </button>
+            ))}
           </div>
-        </div>
-      </section>
+        )}
+      </PageHero>
+      {mode === 'file' && canFile ? (
+        <section className="section">
+          <ComplaintForm />
+        </section>
+      ) : (
+        <section className="section">
+          <div className="container complaints-grid">
+            <aside className="card card-body">
+              <h2 className="complaint-side-title">Active by category</h2>
+              <p className="muted small">{active.length} active of {items.length} total</p>
+              <CategoryChart counts={counts} selected={category} onPick={(c) => setCategory(category === c ? 'All' : c)} />
+            </aside>
+
+            <div className="stack">
+              <Pills options={VIEWS} value={view} onChange={setView} label="Status" />
+              <Pills options={['All', ...COMPLAINT_CATEGORIES]} value={category} onChange={setCategory} label="Category" />
+              {shown.length ? (
+                <ul className="complaint-list">
+                  {shown.map((c) => (
+                    <li key={c.id} className="card card-body">
+                      <div className="complaint-list__top">
+                        <span className="chip">{c.category}</span>
+                        <span className={`status status--${c.status}`}>{COMPLAINT_STATUS[c.status]}</span>
+                      </div>
+                      <h4>{c.title}</h4>
+                      <p className="small">{c.description}</p>
+                      <p className="muted small">
+                        {c.authorName}{c.rollNo && ` (${c.rollNo})`}{c.room && `, room ${c.room}`}, {formatDate(c.createdAt)}
+                      </p>
+                      <label className="complaint-list__status">
+                        <span className="small">Status</span>
+                        <select className="input" value={c.status} onChange={(e) => update(c.id, { status: e.target.value })}>
+                          {Object.entries(COMPLAINT_STATUS).map(([id, label]) => <option key={id} value={id}>{label}</option>)}
+                        </select>
+                      </label>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="empty">No complaints match these filters.</p>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
     </>
   )
 }

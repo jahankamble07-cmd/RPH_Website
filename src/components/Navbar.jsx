@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
-import { can, NAV_ITEMS, ROLE_LABELS } from '../auth/roles'
+import { can, navItemsFor, ROLE_LABELS } from '../auth/roles'
 import { useAuth } from '../auth/useAuth'
 import { SITE } from '../data/site'
 import Icon from './Icon'
@@ -13,7 +13,7 @@ export default function Navbar({ onDonate }) {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const items = NAV_ITEMS.filter((item) => can(user, item.permission))
+  const items = navItemsFor(user)
 
   // Close menus on navigation.
   const [lastPath, setLastPath] = useState(location.pathname)
