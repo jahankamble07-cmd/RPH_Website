@@ -5,9 +5,11 @@ import { useAuth } from '../auth/useAuth'
 import { SITE } from '../data/site'
 import Icon from './Icon'
 import Logo from './Logo'
+import { useProfile } from '../features/profile/useProfile'
 
 export default function Navbar({ onDonate }) {
   const { user, logout } = useAuth()
+  const { profile } = useProfile(user)
   const [open, setOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
@@ -65,18 +67,21 @@ export default function Navbar({ onDonate }) {
             <div className="nav-user">
               <button
                 type="button"
-                className="icon-btn nav-user__btn"
+                className={`icon-btn nav-user__btn${profile?.photo ? ' has-photo' : ''}`}
                 aria-haspopup="menu"
                 aria-expanded={menuOpen}
                 onClick={() => setMenuOpen((v) => !v)}
                 aria-label="Account menu"
               >
-                <Icon name="user" />
+                {profile?.photo ? <img src={profile.photo} alt="" /> : <Icon name="user" />}
               </button>
               {menuOpen && (
                 <div className="nav-user__menu" role="menu">
-                  <p className="nav-user__name">{user.name}</p>
+                  <p className="nav-user__name">{profile?.name ?? user.name}</p>
                   <p className="nav-user__role">{ROLE_LABELS[user.role]}</p>
+                  <Link to="/profile" role="menuitem" className="nav-user__link">
+                    <Icon name="user" size={16} /> My profile
+                  </Link>
                   <button type="button" role="menuitem" className="nav-user__logout" onClick={handleLogout}>
                     <Icon name="logout" size={16} /> Log out
                   </button>

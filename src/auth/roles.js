@@ -28,6 +28,7 @@ export const PERMISSIONS = {
   'funding.donate': [ALUMNI],
   'recruitment.manage': [ALUMNI],
   'fundingRequests.view': [WARDEN, HALL_COUNCIL],
+  'profile.view': [STUDENT, ALUMNI, HALL_COUNCIL, WARDEN],
 }
 
 export function can(user, permission) {

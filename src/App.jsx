@@ -17,6 +17,7 @@ import Legacy from './pages/Legacy'
 import Login from './pages/Login'
 import NewComplaint from './pages/NewComplaint'
 import NotFound from './pages/NotFound'
+import Profile from './pages/Profile'
 import Recruitment from './pages/Recruitment'
 
 const guarded = (permission, element) => <RequireAccess permission={permission}>{element}</RequireAccess>
@@ -40,6 +41,7 @@ export default function App() {
         <Route path="funding" element={guarded('funding.view', <Funding />)} />
         <Route path="recruitment" element={guarded('recruitment.manage', <Recruitment />)} />
         <Route path="funding-requests" element={guarded('fundingRequests.view', <FundingRequests />)} />
+        <Route path="profile" element={guarded('profile.view', <Profile />)} />
         <Route path="login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Route>

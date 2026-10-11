@@ -73,4 +73,5 @@ export const COLLECTIONS = {
   projects: 'projects',
   opportunities: 'opportunities',
   support: 'support',
+  profiles: 'profiles',
 }

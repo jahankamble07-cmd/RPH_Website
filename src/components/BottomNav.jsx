@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { navItemsFor, ROLE_LABELS } from '../auth/roles'
 import { useAuth } from '../auth/useAuth'
+import { useProfile } from '../features/profile/useProfile'
 import Icon from './Icon'
 
 const TABS = [
@@ -25,6 +26,7 @@ const ICONS = {
 // remaining pages for the signed-in role and the account actions.
 export default function BottomNav({ onDonate }) {
   const { user, logout } = useAuth()
+  const { profile } = useProfile(user)
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
@@ -71,13 +73,16 @@ export default function BottomNav({ onDonate }) {
             <div className="sheet__panel" role="dialog" aria-modal="true" aria-label="Menu">
               <span className="sheet__grip" aria-hidden="true" />
               {user ? (
-                <div className="sheet__user">
-                  <span className="sheet__avatar"><Icon name="user" size={20} /></span>
+                <Link to="/profile" className="sheet__user">
+                  <span className="sheet__avatar">
+                    {profile?.photo ? <img src={profile.photo} alt="" /> : <Icon name="user" size={20} />}
+                  </span>
                   <div>
-                    <strong>{user.name}</strong>
-                    <span>{ROLE_LABELS[user.role]}</span>
+                    <strong>{profile?.name ?? user.name}</strong>
+                    <span>{ROLE_LABELS[user.role]} · View profile</span>
                   </div>
-                </div>
+                  <Icon name="right" size={18} />
+                </Link>
               ) : (
                 <p className="sheet__hint">Log in to see the pages for your role.</p>
               )}
