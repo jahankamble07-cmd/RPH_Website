@@ -42,12 +42,12 @@ shows a "No access" page to logged-in users without permission.
 |-------------------------------------------|:-------:|:------------:|:------:|:------:|
 | Home, Hall Council, Our Legacy, Gallery, Innovation | yes | yes | yes | yes |
 | Notice Board and Hall Events on Home      | yes     |              |        |        |
-| New Complaint                             | yes     |              |        |        |
-| Post a project (Innovation)               | yes     |              |        |        |
+| New Complaint                             | yes     | yes          |        |        |
+| Post a project (Innovation)               | yes     | yes          |        |        |
 | Complaints dashboard                      |         | yes          |        | yes    |
 | Funding (donate, offer support, leaderboard) |      |              | yes    |        |
 | Recruitment (post openings)               |         |              | yes    |        |
-| Funding Requests                          |         |              |        | yes    |
+| Funding Requests                          |         | yes          |        | yes    |
 
 ## Data
 

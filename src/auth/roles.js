@@ -19,14 +19,14 @@ const { STUDENT, ALUMNI, HALL_COUNCIL, WARDEN } = ROLES
 export const PERMISSIONS = {
   'notices.view': [STUDENT],
   'events.view': [STUDENT],
-  'complaints.create': [STUDENT],
+  'complaints.create': [STUDENT, HALL_COUNCIL],
   'complaints.review': [HALL_COUNCIL, WARDEN],
-  'innovation.postProject': [STUDENT],
+  'innovation.postProject': [STUDENT, HALL_COUNCIL],
   'innovation.postOpportunity': [ALUMNI],
   'funding.view': [ALUMNI],
   'funding.donate': [ALUMNI],
   'recruitment.manage': [ALUMNI],
-  'fundingRequests.view': [WARDEN],
+  'fundingRequests.view': [WARDEN, HALL_COUNCIL],
 }
 
 export function can(user, permission) {
