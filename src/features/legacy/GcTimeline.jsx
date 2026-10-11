@@ -58,14 +58,19 @@ export default function GcTimeline({ entries, onOpen }) {
       const total = path.getTotalLength()
       if (!total) return
       const box = wrap.getBoundingClientRect()
-      // The line tip follows a point 75% down the viewport and is complete
-      // once that point passes the last marker.
-      const reach = window.innerHeight * 0.75 - box.top
+      // The line tip follows a point 75% down the viewport. If the page ends
+      // before that point can reach the last marker, the line is scaled so it
+      // still completes at the bottom of the page.
+      const anchor = window.innerHeight * 0.75
+      const reach = anchor - box.top
       const end = markerY.current[markerY.current.length - 1] || box.height
-      const progress = Math.min(1, Math.max(0, reach / end))
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight
+      const reachAtBottom = anchor - (box.top + window.scrollY - maxScroll)
+      const span = Math.max(1, Math.min(end, reachAtBottom))
+      const progress = Math.min(1, Math.max(0, reach / span))
       path.style.strokeDashoffset = `${total * (1 - progress)}`
       setVisible((prev) => {
-        const next = markerY.current.map((y) => reach >= y - 140)
+        const next = markerY.current.map((y) => progress * end >= y - 140)
         return next.every((v, i) => v === prev[i]) ? prev : next
       })
     }
