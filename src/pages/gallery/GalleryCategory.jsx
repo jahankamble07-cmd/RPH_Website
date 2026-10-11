@@ -2,6 +2,7 @@ import { Link, useParams, useSearchParams } from 'react-router-dom'
 import Breadcrumbs from '../../components/Breadcrumbs'
 import Icon from '../../components/Icon'
 import Pills from '../../components/Pills'
+import Reveal from '../../components/Reveal'
 import { allPhotos, GALLERY_YEARS, GC_SPORTS, getCategory, HALL_ACTIVITIES } from '../../data/gallery'
 import { img } from '../../data/images'
 import NotFound from '../NotFound'
@@ -22,16 +23,18 @@ function SportList() {
     <>
       <div className="section-head"><h2>Select a Sport / Event</h2></div>
       <div className="grid grid--4">
-        {GC_SPORTS.map((s) => {
+        {GC_SPORTS.map((s, i) => {
           const count = allPhotos(s.photos).length
           return (
-            <Link key={s.id} to={`/gallery/general-championship/${s.id}`} className="card tile-link">
-              <Cover photoKey={count ? s.cover : null} alt="" />
-              <div className="card-body">
-                <h3>{s.title}</h3>
-                <p className="muted small">{count ? `${count} photos` : 'Photos to be added'}</p>
-              </div>
-            </Link>
+            <Reveal key={s.id} delay={(i % 4) * 80}>
+              <Link to={`/gallery/general-championship/${s.id}`} className="card tile-link lift">
+                <Cover photoKey={count ? s.cover : null} alt="" />
+                <div className="card-body">
+                  <h3>{s.title}</h3>
+                  <p className="muted small">{count ? `${count} photos` : 'Photos to be added'}</p>
+                </div>
+              </Link>
+            </Reveal>
           )
         })}
       </div>
@@ -49,16 +52,18 @@ function EventsByYear() {
       <Pills options={GALLERY_YEARS} value={year} onChange={(id) => setParams({ year: id }, { replace: true })} label="Year" />
       <h2>{label}</h2>
       <div className="grid grid--3">
-        {HALL_ACTIVITIES.map((e) => {
+        {HALL_ACTIVITIES.map((e, i) => {
           const first = e.photos[year]?.[0]
           return (
-            <Link key={e.id} to={`/gallery/hall-activities/${e.id}?year=${year}`} className="card tile-link">
-              <Cover photoKey={first} alt="" />
-              <div className="card-body">
-                <h3>{e.title} {label}</h3>
-                <p className="muted small">{first ? `${e.photos[year].length} photos` : 'Photos to be added'}</p>
-              </div>
-            </Link>
+            <Reveal key={e.id + year} delay={i * 80}>
+              <Link to={`/gallery/hall-activities/${e.id}?year=${year}`} className="card tile-link lift">
+                <Cover photoKey={first} alt="" />
+                <div className="card-body">
+                  <h3>{e.title} {label}</h3>
+                  <p className="muted small">{first ? `${e.photos[year].length} photos` : 'Photos to be added'}</p>
+                </div>
+              </Link>
+            </Reveal>
           )
         })}
       </div>

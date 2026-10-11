@@ -1,18 +1,21 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import Carousel3D from '../../components/Carousel3D'
+import CubeCarousel from '../../components/CubeCarousel'
 import Icon from '../../components/Icon'
+import Lightbox from '../../components/Lightbox'
 import Pills from '../../components/Pills'
-import PhotoGrid from '../../components/PhotoGrid'
-import { CATEGORIES, HIGHLIGHTS, photoList } from '../../data/gallery'
+import Reveal from '../../components/Reveal'
+import { CATEGORIES, HIGHLIGHTS } from '../../data/gallery'
 import { img } from '../../data/images'
 import '../../styles/gallery.css'
 
 const FILTERS = [{ id: 'all', label: 'All' }, ...CATEGORIES.map((c) => ({ id: c.id, label: c.title }))]
+const HIGHLIGHT_PHOTOS = HIGHLIGHTS.map((h) => ({ key: h.key, src: img(h.key), alt: h.caption }))
 
 export default function GalleryLanding() {
   const [active, setActive] = useState(0)
   const [filter, setFilter] = useState('all')
+  const [open, setOpen] = useState(null)
 
   const pickFilter = (id) => {
     setFilter(id)
@@ -37,23 +40,48 @@ export default function GalleryLanding() {
   }))
 
   return (
-    <section className="section">
-      <div className="container">
-        <header className="gallery-head">
-          <p className="gallery-head__label">GALLERY</p>
-          <h1>Memories of RP Hall</h1>
-          <p className="muted">Our traditions, moments and achievements — all in one place.</p>
-        </header>
+    <>
+      <section className="section">
+        <div className="container">
+          <header className="gallery-head">
+            <p className="gallery-head__label rise" style={{ '--i': 0 }}>GALLERY</p>
+            <h1 className="rise" style={{ '--i': 1 }}>Memories of RP Hall</h1>
+            <p className="muted rise" style={{ '--i': 2 }}>Our traditions, moments and achievements — all in one place.</p>
+          </header>
 
-        <Pills options={FILTERS} value={filter} onChange={pickFilter} label="Album" center />
+          <Pills options={FILTERS} value={filter} onChange={pickFilter} label="Album" center />
 
-        <Carousel3D items={albums} active={active} onActive={pickAlbum} label="Albums" />
-
-        <div className="section-head">
-          <h2>Recent Highlights</h2>
+          <CubeCarousel items={albums} active={active} onActive={pickAlbum} label="Albums" />
         </div>
-        <PhotoGrid photos={photoList(HIGHLIGHTS, 'R.P. Hall gallery photo')} title="Recent Highlights" variant="strip" />
-      </div>
-    </section>
+      </section>
+
+      <section className="section highlights">
+        <div className="container">
+          <Reveal className="section-head">
+            <div>
+              <h2>Recent Highlights</h2>
+              <p>Select a photo to view it full size.</p>
+            </div>
+          </Reveal>
+          <div className="mosaic">
+            {HIGHLIGHTS.map((h, i) => (
+              <Reveal key={h.key} variant="zoom" delay={(i % 5) * 90} className={h.size ? `tile--${h.size}` : undefined}>
+                <button type="button" className="mosaic__tile" onClick={() => setOpen(i)} aria-label={`Open photo: ${h.caption}`}>
+                  <img src={img(h.key)} alt="" loading="lazy" />
+                  <span className="mosaic__caption">
+                    <strong>{h.caption}</strong>
+                    <span>View photo</span>
+                  </span>
+                </button>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {open !== null && (
+        <Lightbox photos={HIGHLIGHT_PHOTOS} index={open} title="Recent Highlights" onClose={() => setOpen(null)} onIndex={setOpen} />
+      )}
+    </>
   )
 }

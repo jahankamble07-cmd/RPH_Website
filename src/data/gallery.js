@@ -94,5 +94,14 @@ export function allPhotos(photos = {}) {
 }
 
 export const HIGHLIGHTS = [
-  'illu-4', 'rangoli-3', 'football', 'illu-1', 'janmashtami-2', 'rangoli-1', 'basketball', 'illu-5',
+  { key: 'illu-4', caption: 'Illumination', size: 'big' },
+  { key: 'rangoli-3', caption: 'Rangoli' },
+  { key: 'football', caption: 'General Championship', size: 'tall' },
+  { key: 'illu-1', caption: 'Illumination' },
+  { key: 'janmashtami-2', caption: 'Janmashtami', size: 'wide' },
+  { key: 'rangoli-1', caption: 'Rangoli' },
+  { key: 'basketball', caption: 'General Championship' },
+  { key: 'illu-5', caption: 'Illumination', size: 'wide' },
+  { key: 'volleyball', caption: 'General Championship' },
+  { key: 'rangoli-4', caption: 'Rangoli' },
 ]
