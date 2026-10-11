@@ -73,30 +73,88 @@
 
 .nav__links a {
   position: relative;
-  padding: 8px 10px;
+  z-index: 0;
+  padding: 8px 12px;
   color: var(--ink-soft);
   font-weight: 600;
   font-size: 0.92rem;
   text-decoration: none;
   white-space: nowrap;
+  transition: color 0.25s, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.nav__links a:hover {
+/* Hover: a soft pill grows in behind the link and a gold line draws out
+   from the centre. The active link keeps its line. */
+.nav__links a::before {
+  content: '';
+  position: absolute;
+  inset: 2px 0;
+  z-index: -1;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.65);
+  box-shadow: 0 4px 14px rgb(71 13 24 / 0.1);
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.25s, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav__links a::after {
+  content: '';
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 3px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav__links a:hover,
+.nav__links a:focus-visible {
   color: var(--maroon);
+  transform: translateY(-1px);
+}
+
+.nav__links a:hover::before,
+.nav__links a:focus-visible::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.nav__links a:hover::after,
+.nav__links a.active::after {
+  transform: scaleX(1);
 }
 
 .nav__links a.active {
   color: var(--maroon);
 }
 
-.nav__links a.active::after {
-  content: '';
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  bottom: 2px;
-  height: 2px;
-  background: var(--gold);
+.brand__logo {
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.brand:hover .brand__logo {
+  transform: rotate(-8deg) scale(1.1);
+}
+
+.brand__text strong {
+  transition: letter-spacing 0.4s ease;
+}
+
+.brand:hover .brand__text strong {
+  letter-spacing: 0.05em;
+}
+
+.nav__actions .icon-btn {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+}
+
+.nav__actions .icon-btn:hover {
+  transform: translateY(-2px) scale(1.06);
+  box-shadow: 0 0 0 4px rgb(184 137 43 / 0.2), 0 8px 18px rgb(71 13 24 / 0.15);
 }
 
 .nav__actions {
@@ -184,12 +242,16 @@
   }
 
   .nav__links a {
-    padding: 12px 4px;
+    padding: 12px 10px;
     border-bottom: 1px solid var(--line);
   }
 
-  .nav__links a.active::after {
+  .nav__links a::after {
     display: none;
+  }
+
+  .nav__links a:hover {
+    transform: translateX(4px);
   }
 }
 

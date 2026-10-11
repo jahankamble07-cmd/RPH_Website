@@ -108,10 +108,7 @@ body::before {
 
 .btn--outline-light {
   background: rgb(255 255 255 / 0.12);
-  border-color: rgb(255 255 255 / 0.45);
-  box-shadow: var(--glass-dark-edge);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  border-color: rgb(255 255 255 / 0.55);
 }
 
 .btn--donate {
@@ -425,4 +422,52 @@ body::before {
 .sheet__actions .btn {
   width: 100%;
   min-height: 46px;
+}
+
+.nav-user__btn.has-photo {
+  padding: 0;
+  overflow: hidden;
+}
+
+.nav-user__btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nav-user__link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding: 8px 0;
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s, transform 0.25s;
+}
+
+.nav-user__link:hover {
+  color: var(--maroon);
+  transform: translateX(3px);
+}
+
+.sheet__user {
+  color: inherit;
+  text-decoration: none;
+}
+
+.sheet__user > svg {
+  margin-left: auto;
+  color: var(--muted);
+}
+
+.sheet__avatar {
+  overflow: hidden;
+}
+
+.sheet__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
