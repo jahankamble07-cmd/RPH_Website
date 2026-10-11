@@ -177,6 +177,17 @@ R4-6. [x] Phones: app-style frosted tab bar (Home, Legacy, Gallery, Innovation, 
 
 Verification: build and lint clean; overflow audit clean at 320 to 768px for all roles; role walkthrough unchanged.
 
+## Round 5 (requested in chat, 11 Oct 2026)
+
+R5-1. [x] Events calendar toned down: flat dark panel, no glow or grid pattern, plain gold date, today shown with a thin outline. `src/pages/Home.css`
+R5-2. [x] Home hero fills the screen below the navbar on desktop, with a scroll cue. On phones the whole photo is shown uncropped at the top and fades into the text below. `src/pages/Home.jsx`, `src/pages/Home.css`
+R5-3. [x] Frosted boxes removed from everything that sits on a photo (hero text, page headers, carousel and highlight captions, album banners, stats strips, login). Text is back on a dark fade over the image. The navbar and phone tab bar keep their blur. Login is back to the split layout. `src/styles/components.css`, `src/styles/gallery.css`, `src/styles/glass.css`, `src/pages/Login.*`, `src/pages/Home.css`, `src/pages/innovation/Innovation.css`
+R5-4. [x] Profile page at /profile for every role: photo upload (resized in the browser), basic information by role, hall details, contact, activity summary, edit form with validation. Linked from the account menu and the phone menu; the account button shows the photo. `src/pages/Profile.*`, `src/data/profile.js`, `src/features/profile/useProfile.js`, `src/components/Navbar.jsx`, `src/components/BottomNav.jsx`
+R5-5. [x] Navbar hover: pill highlight, gold underline drawn from the centre, small lift; logo tilt on hover; account button ring. A load-in animation for the links was tried and dropped because Chrome sometimes failed to repaint the links under the frosted bar. `src/styles/layout.css`
+R5-6. [x] README merge conflict from the GitHub merge resolved (kept the project README).
+
+Verification: build and lint clean; profile flow tested (photo upload, invalid roll number rejected, save, photo in navbar, logged-out redirect); no overflow at 320, 375 and 440px for any role.
+
 ## Open questions
 
 Q1. Reference-screenshot copy. Current choice: headings and taglines used as shown; data treated as samples.
