@@ -1,6 +1,6 @@
 .home-hero {
   position: relative;
-  min-height: clamp(440px, 72vh, 620px);
+  min-height: calc(100svh - var(--nav-h));
   display: flex;
   align-items: center;
   background: var(--maroon-deep);
@@ -13,13 +13,14 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 45% 55%;
 }
 
 .home-hero::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgb(43 8 14 / 0.5) 0%, rgb(43 8 14 / 0.25) 50%, rgb(43 8 14 / 0.05) 100%);
+  background: linear-gradient(90deg, rgb(43 8 14 / 0.86) 0%, rgb(43 8 14 / 0.55) 48%, rgb(43 8 14 / 0.12) 100%);
 }
 
 .home-hero__body {
@@ -58,10 +59,10 @@
   margin: -52px 0 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  background: rgb(255 252 246 / 0.5);
+  background: var(--ivory);
   border-radius: 22px;
-  backdrop-filter: blur(22px) saturate(170%);
-  -webkit-backdrop-filter: blur(22px) saturate(170%);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .stats__item {
@@ -291,27 +292,11 @@
   display: grid;
   gap: 14px;
   padding: 22px;
-  border-radius: 26px;
-  color: #f4e7d6;
-  background:
-    radial-gradient(70% 45% at 100% 0%, rgb(214 58 0 / 0.35), transparent 70%),
-    radial-gradient(60% 50% at 0% 100%, rgb(184 137 43 / 0.3), transparent 70%),
-    linear-gradient(160deg, #3a0a14 0%, #1d0509 60%, #120306 100%);
-  border: 1px solid rgb(255 255 255 / 0.12);
-  box-shadow: 0 30px 60px rgb(43 8 14 / 0.35), inset 0 1px 0 rgb(255 255 255 / 0.12);
-}
-
-/* Faint grid lines behind the panel */
-.cal::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgb(255 255 255 / 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 255 255 / 0.03) 1px, transparent 1px);
-  background-size: 22px 22px;
-  mask-image: linear-gradient(180deg, #000, transparent 75%);
+  border-radius: 22px;
+  color: #eadfd2;
+  background: linear-gradient(165deg, #2e0911 0%, #1c060b 100%);
+  border: 1px solid rgb(255 255 255 / 0.08);
+  box-shadow: 0 14px 30px rgb(43 8 14 / 0.2);
 }
 
 .cal > * {
@@ -333,14 +318,10 @@
 
 .cal__today-num {
   font-family: var(--font-display);
-  font-size: 3.4rem;
+  font-size: 2.6rem;
   font-weight: 700;
   line-height: 0.9;
-  background: linear-gradient(180deg, #fff3cf, var(--gold-light) 45%, var(--gold));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  filter: drop-shadow(0 4px 14px rgb(243 213 138 / 0.35));
+  color: var(--gold-light);
 }
 
 .cal__today-text {
@@ -366,9 +347,8 @@
   border-radius: 999px;
   font-size: var(--fs-xs);
   font-weight: 700;
-  color: var(--gold-light);
-  background: rgb(255 255 255 / 0.07);
-  border: 1px solid rgb(243 213 138 / 0.28);
+  color: #cdb8a6;
+  border: 1px solid rgb(255 255 255 / 0.12);
   white-space: nowrap;
 }
 
@@ -376,12 +356,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px;
-  border-radius: 16px;
-  background: rgb(255 255 255 / 0.06);
-  border: 1px solid rgb(255 255 255 / 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  padding: 2px 0;
 }
 
 .cal__month {
@@ -395,7 +370,7 @@
 }
 
 .cal__month span {
-  color: var(--gold-light);
+  color: #cdb8a6;
 }
 
 .cal__arrow {
@@ -403,18 +378,16 @@
   place-items: center;
   width: 36px;
   height: 36px;
-  border-radius: 12px;
-  border: 1px solid rgb(255 255 255 / 0.14);
-  background: rgb(255 255 255 / 0.06);
+  border-radius: 10px;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  background: transparent;
   color: var(--ivory);
   cursor: pointer;
-  transition: background 0.2s, transform 0.2s, border-color 0.2s;
+  transition: background 0.2s, border-color 0.2s;
 }
 
 .cal__arrow:hover {
-  background: rgb(243 213 138 / 0.18);
-  border-color: rgb(243 213 138 / 0.5);
-  transform: scale(1.06);
+  background: rgb(255 255 255 / 0.08);
 }
 
 .cal__wd,
@@ -433,7 +406,7 @@
 }
 
 .cal__wd .is-weekend {
-  color: #e08a6a;
+  color: #a98f80;
 }
 
 .cal__grid.from-right {
@@ -465,9 +438,9 @@
   place-items: center;
   padding: 0;
   border: 1px solid transparent;
-  border-radius: 12px;
-  background: rgb(255 255 255 / 0.03);
-  color: #eadbc8;
+  border-radius: 10px;
+  background: transparent;
+  color: #e2d4c4;
   font: inherit;
   font-size: var(--fs-small);
   font-variant-numeric: tabular-nums;
@@ -476,13 +449,11 @@
 }
 
 .cal__day.is-weekend {
-  color: #e8a184;
+  color: #b9a191;
 }
 
 .cal__day:hover {
-  background: rgb(255 255 255 / 0.1);
-  border-color: rgb(255 255 255 / 0.18);
-  transform: translateY(-2px);
+  background: rgb(255 255 255 / 0.07);
 }
 
 .cal__day.has-event::after {
@@ -493,35 +464,22 @@
   height: 5px;
   border-radius: 50%;
   background: var(--gold-light);
-  box-shadow: 0 0 8px var(--gold-light);
 }
 
 .cal__day.is-selected {
-  border-color: rgb(243 213 138 / 0.6);
-  background: rgb(243 213 138 / 0.12);
+  background: rgb(255 255 255 / 0.1);
   color: var(--ivory);
 }
 
 .cal__day.is-today {
-  color: #2b0a10;
-  font-weight: 800;
-  background: linear-gradient(160deg, #ffe7a6, var(--gold));
-  border-color: transparent;
-  box-shadow: 0 0 0 3px rgb(243 213 138 / 0.18), 0 0 22px rgb(243 213 138 / 0.55);
-  animation: cal-glow 2.8s ease-in-out infinite;
-}
-
-@keyframes cal-glow {
-  50% {
-    box-shadow: 0 0 0 5px rgb(243 213 138 / 0.12), 0 0 30px rgb(243 213 138 / 0.75);
-  }
+  color: var(--gold-light);
+  font-weight: 700;
+  border-color: rgb(243 213 138 / 0.55);
 }
 
 .cal__detail {
-  padding: 14px 16px;
-  border-radius: 16px;
-  background: rgb(255 255 255 / 0.06);
-  border: 1px solid rgb(255 255 255 / 0.1);
+  padding: 12px 0 0;
+  border-top: 1px solid rgb(255 255 255 / 0.1);
   animation: rise 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -561,7 +519,6 @@
   height: 8px;
   border-radius: 50%;
   background: var(--gold-light);
-  box-shadow: 0 0 10px var(--gold-light);
 }
 
 .cal__empty {
@@ -581,9 +538,9 @@
 .cal__today-btn {
   padding: 6px 14px;
   border-radius: 999px;
-  border: 1px solid rgb(243 213 138 / 0.4);
-  background: rgb(243 213 138 / 0.1);
-  color: var(--gold-light);
+  border: 1px solid rgb(255 255 255 / 0.18);
+  background: transparent;
+  color: #e2d4c4;
   font-weight: 700;
   font-size: var(--fs-xs);
   cursor: pointer;
@@ -591,13 +548,7 @@
 }
 
 .cal__today-btn:hover {
-  background: rgb(243 213 138 / 0.22);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cal__day.is-today {
-    animation: none;
-  }
+  background: rgb(255 255 255 / 0.08);
 }
 
 .reflections {
@@ -614,4 +565,67 @@
 
 .home-hero__img {
   transform-origin: 60% 40%;
+}
+
+/* Scroll cue at the bottom of the full-height hero */
+.home-hero__cue {
+  position: absolute;
+  left: 50%;
+  bottom: 84px;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  color: rgb(255 250 241 / 0.75);
+  font-size: var(--fs-xs);
+  text-decoration: none;
+  transform: translateX(-50%);
+}
+
+.home-hero__cue svg {
+  animation: cue 1.8s ease-in-out infinite;
+}
+
+@keyframes cue {
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+/* Phones: show the whole photo at the top instead of cropping a portrait
+   slice out of it, and let it fade into the text below. */
+@media (max-width: 700px) {
+  .home-hero {
+    flex-direction: column;
+    align-items: stretch;
+    min-height: calc(100svh - var(--nav-h) - var(--bottom-bar-h, 0px));
+  }
+
+  .home-hero__img {
+    position: relative;
+    inset: auto;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: 50% 50%;
+    animation: none;
+    -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent);
+    mask-image: linear-gradient(180deg, #000 72%, transparent);
+  }
+
+  .home-hero::after {
+    display: none;
+  }
+
+  .home-hero__body {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    margin-top: -36px;
+    padding-block: 0 84px;
+  }
+
+  .home-hero__cue {
+    display: none;
+  }
 }

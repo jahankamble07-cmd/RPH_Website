@@ -59,9 +59,12 @@ export default function Home() {
             </Link>
           </div>
         </div>
+        <a href="#home-stats" className="home-hero__cue" aria-label="Scroll down">
+          <Icon name="down" size={22} />
+        </a>
       </section>
 
-      <div className="container">
+      <div className="container" id="home-stats">
         <Reveal as="dl" className="stats card" variant="zoom">
           {HALL_STATS.map((s) => (
             <div key={s.label} className="stats__item">
